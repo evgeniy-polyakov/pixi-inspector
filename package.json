@@ -1,0 +1,14 @@
+{
+    "name": "pixi-inspector",
+    "version": "0.0.1",
+    "license": "MIT",
+    "dependencies": {
+    },
+    "devDependencies": {
+        "@types/pixi.js": "latest",
+        "typescript": "latest"
+    },
+    "scripts": {
+        "compile": "tsc"
+    }
+}

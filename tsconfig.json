@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "strictNullChecks": false,
+        "noImplicitAny": true,
+        "removeComments": true,
+        "experimentalDecorators": true,
+        "module": "amd",
+        "outFile": "dist/pixi-inspector.js",
+        "sourceMap": true,
+        "declaration": true,
+        "declarationMap": true,
+        "target": "es5",
+        "rootDir": "src",
+        "lib": [
+            "es5",
+            "dom"
+        ]
+    },
+    "include": [
+        "src/**/*.ts"
+    ]
+}
