@@ -1,7 +1,7 @@
-import AttributeParser from "./AttributeParser";
-import PrimitiveAttributeParser from "./PrimitiveAttributeParser";
+import {AttributeParser} from "./AttributeParser";
+import {PrimitiveAttributeParser} from "./PrimitiveAttributeParser";
 
-export default class ArrayAttributeParser<T> implements AttributeParser<T[]> {
+export class ArrayAttributeParser<T> implements AttributeParser<T[]> {
 
     private elementParser: AttributeParser<T>;
 

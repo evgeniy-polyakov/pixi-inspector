@@ -1,17 +1,14 @@
-import Container = PIXI.Container;
-import Rectangle = PIXI.Rectangle;
-import DisplayObject = PIXI.DisplayObject;
-import HTMLPixiElement from "./HTMLPixiElement";
-import ElementPool from "./ElementPool";
-import AttributeParser from "./attributes/AttributeParser";
+import {HTMLPixiElement} from "./HTMLPixiElement";
+import {ElementPool} from "./ElementPool";
+import {AttributeParser} from "./attributes/AttributeParser";
 import {domAttr, domHidden, domLeaf} from "./decorators";
-import DomAttribute from "./attributes/DomAttribute";
+import {DomAttribute} from "./attributes/DomAttribute";
 
-export default class PixiInspector {
+export class PixiInspector {
 
     private _rootElement: HTMLPixiElement;
     private readonly _elementPool = new ElementPool();
-    private readonly _tempRect = new Rectangle();
+    private readonly _tempRect = new PIXI.Rectangle();
     private readonly _mutationObserver = new MutationObserver(mutations => this.onDomChange(mutations));
 
     private _updateInterval = 0.2;
@@ -20,7 +17,7 @@ export default class PixiInspector {
 
     private static styleSheet: CSSStyleSheet;
 
-    constructor(private _rootNode: Container,
+    constructor(private _rootNode: PIXI.Container,
                 private _canvas: HTMLCanvasElement) {
         this.createStyleSheet();
         this.update();
@@ -29,19 +26,19 @@ export default class PixiInspector {
         this.startUpdateInterval();
     }
 
-    domAttr<T extends DisplayObject, P>(nodeType: { new(...args: any[]): T },
-                                        propertyName: keyof T,
-                                        parser?: AttributeParser<P> | { new(): AttributeParser<P> }): this {
+    domAttr<T extends PIXI.DisplayObject, P>(nodeType: { new(...args: any[]): T },
+                                             propertyName: keyof T,
+                                             parser?: AttributeParser<P> | { new(): AttributeParser<P> }): this {
         domAttr(parser)(nodeType.prototype, propertyName as string);
         return this;
     }
 
-    domLeaf<T extends DisplayObject>(nodeType: { new(...args: any[]): T }) {
+    domLeaf<T extends PIXI.DisplayObject>(nodeType: { new(...args: any[]): T }) {
         domLeaf()(nodeType);
         return this;
     }
 
-    domHidden<T extends DisplayObject>(nodeType: { new(...args: any[]): T }) {
+    domHidden<T extends PIXI.DisplayObject>(nodeType: { new(...args: any[]): T }) {
         domHidden()(nodeType);
         return this;
     }
@@ -70,12 +67,12 @@ export default class PixiInspector {
         PixiInspector.styleSheet.disabled = false;
     }
 
-    private buildElement(node: DisplayObject, element?: HTMLPixiElement): HTMLPixiElement {
+    private buildElement(node: PIXI.DisplayObject, element?: HTMLPixiElement): HTMLPixiElement {
         element = element || this._elementPool.get(node);
         element.pixiTarget = node;
         this.setElementStyle(node, element);
         this.setElementAttributes(node, element);
-        if (node instanceof Container && !(<any>node)['__pixi_inspector_is_leaf__']) {
+        if (node instanceof PIXI.Container && !(<any>node)['__pixi_inspector_is_leaf__']) {
             let i = 0;
             let n = Math.min(node.children.length, element.childNodes.length);
             for (; i < n; i++) {
@@ -112,7 +109,7 @@ export default class PixiInspector {
         this._elementPool.release(element);
     }
 
-    private setElementStyle(node: DisplayObject, element: HTMLPixiElement) {
+    private setElementStyle(node: PIXI.DisplayObject, element: HTMLPixiElement) {
         let bounds = node.getBounds(false, this._tempRect);
         if (!element.pixiStyle) {
             let index = PixiInspector.styleSheet.cssRules.length;
@@ -130,7 +127,7 @@ export default class PixiInspector {
         style.height = `${(bounds.height).toFixed(2)}px`;
     }
 
-    private setElementAttributes(node: DisplayObject, element: HTMLPixiElement) {
+    private setElementAttributes(node: PIXI.DisplayObject, element: HTMLPixiElement) {
         let attributes = (<any>node)['__pixi_inspector_attributes__'] as DomAttribute[];
         if (attributes) {
             for (let attribute of attributes) {

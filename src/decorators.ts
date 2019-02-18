@@ -1,6 +1,6 @@
-import AttributeParser from "./attributes/AttributeParser";
-import AutoAttributeParser from "./attributes/AutoAttributeParser";
-import DomAttribute from "./attributes/DomAttribute";
+import {AttributeParser} from "./attributes/AttributeParser";
+import {AutoAttributeParser} from "./attributes/AutoAttributeParser";
+import {DomAttribute} from "./attributes/DomAttribute";
 
 export function domAttr<T extends PIXI.DisplayObject, P>(parser?: AttributeParser<P> | { new(): AttributeParser<P> }) {
     return function (target: T, propertyName: string) {

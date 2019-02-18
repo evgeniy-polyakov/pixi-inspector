@@ -1,6 +1,6 @@
-import AttributeParser from "./AttributeParser";
+import {AttributeParser} from "./AttributeParser";
 
-export default interface DomAttribute {
+export interface DomAttribute {
     name: string,
     parser: AttributeParser<any>;
 }

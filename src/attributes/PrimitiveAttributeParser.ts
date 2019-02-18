@@ -1,6 +1,6 @@
-import AttributeParser from "./AttributeParser";
+import {AttributeParser} from "./AttributeParser";
 
-export default class PrimitiveAttributeParser implements AttributeParser<string | number | boolean | null> {
+export class PrimitiveAttributeParser implements AttributeParser<string | number | boolean | null> {
 
     constructor(private numberPrecision: number = 2) {
     }

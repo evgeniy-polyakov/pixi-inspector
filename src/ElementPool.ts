@@ -1,6 +1,6 @@
-import HTMLPixiElement from "./HTMLPixiElement";
+import {HTMLPixiElement} from "./HTMLPixiElement";
 
-export default class ElementPool {
+export class ElementPool {
 
     private readonly defaultConstructors: [Function, string][] = [
         [PIXI.mesh.NineSlicePlane, 'NineSlicePlane'],
