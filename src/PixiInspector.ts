@@ -4,9 +4,9 @@ import DisplayObject = PIXI.DisplayObject;
 import {HTMLPixiElement} from "./HTMLPixiElement";
 import {ElementPool} from "./ElementPool";
 import {AttributeParser} from "./attributes/AttributeParser";
-import {__pixi_inspector_attributes__, DomAttr, domAttr} from "./decorations/domAttr";
-import {__pixi_inspector_is_leaf__, domLeaf} from "./decorations/domLeaf";
-import {__pixi_inspector_is_hidden__, domHidden} from "./decorations/domHidden";
+import {__pixi_inspector_attributes__, DomAttr, domAttr} from "./decorators/domAttr";
+import {__pixi_inspector_is_leaf__, domLeaf} from "./decorators/domLeaf";
+import {__pixi_inspector_is_hidden__, domHidden} from "./decorators/domHidden";
 
 export class PixiInspector {
 
