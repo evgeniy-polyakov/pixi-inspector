@@ -1,13 +1,12 @@
 import {AttributeParser} from "./attributes/AttributeParser";
 import {AutoAttributeParser} from "./attributes/AutoAttributeParser";
-import {DomAttribute} from "./attributes/DomAttribute";
 
 export function domAttr<T extends PIXI.DisplayObject, P>(parser?: AttributeParser<P> | { new(): AttributeParser<P> }) {
     return function (target: T, propertyName: string) {
         if (!target.hasOwnProperty('__pixi_inspector_class_attributes__')) {
             (<any>target)['__pixi_inspector_class_attributes__'] = [];
         }
-        let classAttributes = (<any>target)['__pixi_inspector_class_attributes__'] as DomAttribute[];
+        let classAttributes = (<any>target)['__pixi_inspector_class_attributes__'] as { name: string, parser: AttributeParser<any> }[];
         if (!classAttributes.some(it => it.name == propertyName)) {
             classAttributes.push({
                 name: propertyName,
