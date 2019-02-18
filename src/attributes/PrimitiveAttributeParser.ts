@@ -1,13 +1,11 @@
 import AttributeParser from "./AttributeParser";
 
-type T = string | number | boolean | null;
-
-export default class PrimitiveAttributeParser implements AttributeParser<T> {
+export default class PrimitiveAttributeParser implements AttributeParser<string | number | boolean | null> {
 
     constructor(private numberPrecision: number = 2) {
     }
 
-    parse(str: string, value?: T): T {
+    parse(str: string, value?: string | number | boolean | null): string | number | boolean | null {
         switch (typeof value) {
             case 'number':
                 return parseFloat(str);
@@ -26,7 +24,7 @@ export default class PrimitiveAttributeParser implements AttributeParser<T> {
         return str;
     }
 
-    stringify(value: T): string {
+    stringify(value: string | number | boolean | null): string {
         if (typeof value == 'number') {
             return value.toFixed(this.numberPrecision);
         }
@@ -36,7 +34,7 @@ export default class PrimitiveAttributeParser implements AttributeParser<T> {
         return '';
     }
 
-    visible(value: T): boolean {
+    visible(value: string | number | boolean | null): boolean {
         return true;
     }
 }

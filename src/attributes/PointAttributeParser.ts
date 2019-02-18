@@ -1,13 +1,11 @@
 import AttributeParser from "./AttributeParser";
 
-type T = { x: number, y: number };
+export default class PointAttributeParser implements AttributeParser<{ x: number, y: number }> {
 
-export default class PointAttributeParser implements AttributeParser<T> {
-
-    constructor(private numberPrecision: number = 2, private factory?: () => T) {
+    constructor(private numberPrecision: number = 2, private factory?: () => { x: number, y: number }) {
     }
 
-    parse(str: string, value?: T): T {
+    parse(str: string, value?: { x: number, y: number }): { x: number, y: number } {
         if (!value) {
             if (this.factory) {
                 value = this.factory();
@@ -26,7 +24,7 @@ export default class PointAttributeParser implements AttributeParser<T> {
         return value;
     }
 
-    stringify(value: PIXI.Point): string {
+    stringify(value: { x: number, y: number }): string {
         if (value) {
             let x = value.x.toFixed(this.numberPrecision);
             let y = value.y.toFixed(this.numberPrecision);
@@ -35,7 +33,7 @@ export default class PointAttributeParser implements AttributeParser<T> {
         return '';
     }
 
-    visible(value: T): boolean {
+    visible(value: { x: number, y: number }): boolean {
         return value != null;
     }
 }
