@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "strictNullChecks": false,
+        "noImplicitAny": true,
+        "removeComments": true,
+        "module": "commonjs",
+        "target": "es5",
+        "rootDir": "src",
+        "outFile": "dist/pixi-inspector.d.ts",
+        "lib": [
+            "es5",
+            "dom"
+        ],
+        "declaration": true,
+        "emitDeclarationOnly": true
+    },
+    "include": [
+        "src/**/*.ts"
+    ],
+    "exclude": [
+        "src/inspector.ts",
+        "src/index.ts"
+    ]
+}

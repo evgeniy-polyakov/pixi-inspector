@@ -26,6 +26,6 @@
         "pixify": "latest"
     },
     "scripts": {
-        "build": "tsc && pixify --name pixi-inspector -s ./bin/ -d ./dist/ --external false"
+        "build": "tsc && pixify --name pixi-inspector -s bin -d dist --external false && tsc -p tsconfig-d.json"
     }
 }
