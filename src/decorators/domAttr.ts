@@ -3,8 +3,8 @@ import AttributeParser from "../attributes/AttributeParser";
 import AutoAttributeParser from "../attributes/AutoAttributeParser";
 import DomAttribute from "../attributes/DomAttribute";
 
-const __pixi_inspector_class_attributes__ = '__pixi2dom_class_attributes__';
-export const __pixi_inspector_attributes__ = '__pixi2dom_attributes__';
+const __pixi_inspector_class_attributes__ = '__pixi_inspector_class_attributes__';
+export const __pixi_inspector_attributes__ = '__pixi_inspector_attributes__';
 
 export default function domAttr<T extends DisplayObject, P>(parser?: AttributeParser<P> | { new(): AttributeParser<P> }) {
     return function (target: T, propertyName: string) {
