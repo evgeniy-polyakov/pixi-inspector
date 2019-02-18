@@ -1,8 +1,8 @@
-import {AttributeParser} from "./AttributeParser";
-import {PrimitiveAttributeParser} from "./PrimitiveAttributeParser";
-import {ArrayAttributeParser} from "./ArrayAttributeParser";
+import AttributeParser from "./AttributeParser";
+import PrimitiveAttributeParser from "./PrimitiveAttributeParser";
+import ArrayAttributeParser from "./ArrayAttributeParser";
 
-export class AutoAttributeParser implements AttributeParser<any> {
+export default class AutoAttributeParser implements AttributeParser<any> {
 
     private arrayAttributeParser = new ArrayAttributeParser<any>();
     private primitiveAttributeParser = new PrimitiveAttributeParser();

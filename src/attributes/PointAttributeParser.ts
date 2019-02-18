@@ -1,8 +1,8 @@
-import {AttributeParser} from "./AttributeParser";
+import AttributeParser from "./AttributeParser";
 
 type T = { x: number, y: number };
 
-export class PointAttributeParser implements AttributeParser<T> {
+export default class PointAttributeParser implements AttributeParser<T> {
 
     constructor(private numberPrecision: number = 2, private factory?: () => T) {
     }

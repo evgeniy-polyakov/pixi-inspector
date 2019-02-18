@@ -1,14 +1,15 @@
 import Container = PIXI.Container;
 import Rectangle = PIXI.Rectangle;
 import DisplayObject = PIXI.DisplayObject;
-import {HTMLPixiElement} from "./HTMLPixiElement";
-import {ElementPool} from "./ElementPool";
-import {AttributeParser} from "./attributes/AttributeParser";
-import {__pixi_inspector_attributes__, DomAttr, domAttr} from "./decorators/domAttr";
-import {__pixi_inspector_is_leaf__, domLeaf} from "./decorators/domLeaf";
-import {__pixi_inspector_is_hidden__, domHidden} from "./decorators/domHidden";
+import HTMLPixiElement from "./HTMLPixiElement";
+import ElementPool from "./ElementPool";
+import AttributeParser from "./attributes/AttributeParser";
+import domAttr, {__pixi_inspector_attributes__} from "./decorators/domAttr";
+import domLeaf, {__pixi_inspector_is_leaf__} from "./decorators/domLeaf";
+import domHidden, {__pixi_inspector_is_hidden__} from "./decorators/domHidden";
+import DomAttribute from "./attributes/DomAttribute";
 
-export class PixiInspector {
+export default class PixiInspector {
 
     private _rootElement: HTMLPixiElement;
     private readonly _elementPool = new ElementPool();
@@ -132,7 +133,7 @@ export class PixiInspector {
     }
 
     private setElementAttributes(node: DisplayObject, element: HTMLPixiElement) {
-        let attributes = (<any>node)[__pixi_inspector_attributes__] as DomAttr[];
+        let attributes = (<any>node)[__pixi_inspector_attributes__] as DomAttribute[];
         if (attributes) {
             for (let attribute of attributes) {
                 let value;
@@ -156,7 +157,7 @@ export class PixiInspector {
                 if (node) {
                     let name = mutation.attributeName;
                     let value = element.getAttribute(name);
-                    let attributes = (<any>node)[__pixi_inspector_attributes__] as DomAttr[];
+                    let attributes = (<any>node)[__pixi_inspector_attributes__] as DomAttribute[];
                     if (attributes) {
                         for (let attribute of attributes) {
                             if (attribute.name == name) {
