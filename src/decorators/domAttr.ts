@@ -1,5 +1,5 @@
-import {AttributeParser} from "./attributes/AttributeParser";
-import {AutoAttributeParser} from "./attributes/AutoAttributeParser";
+import {AttributeParser} from "../attributes/AttributeParser";
+import {AutoAttributeParser} from "../attributes/AutoAttributeParser";
 
 export function domAttr<T extends PIXI.DisplayObject, P>(parser?: AttributeParser<P> | { new(): AttributeParser<P> }) {
     return function (target: T, propertyName: string) {
@@ -24,17 +24,5 @@ export function domAttr<T extends PIXI.DisplayObject, P>(parser?: AttributeParse
                 }
             });
         }
-    }
-}
-
-export function domHidden<T extends PIXI.DisplayObject>() {
-    return function (constructor: { new(...args: any[]): T }) {
-        constructor.prototype['__pixi_inspector_is_hidden__'] = true;
-    }
-}
-
-export function domLeaf<T extends PIXI.DisplayObject>() {
-    return function (constructor: { new(...args: any[]): T }) {
-        constructor.prototype['__pixi_inspector_is_leaf__'] = true;
     }
 }

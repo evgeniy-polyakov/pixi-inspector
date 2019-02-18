@@ -1,5 +1,7 @@
 import {AttributeParser} from "./attributes/AttributeParser";
-import {domAttr, domHidden, domLeaf} from "./decorators";
+import {domAttr} from "./decorators/domAttr";
+import {domLeaf} from "./decorators/domLeaf";
+import {domHidden} from "./decorators/domHidden";
 
 export class PixiInspector {
 
