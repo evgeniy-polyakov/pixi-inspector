@@ -5,11 +5,8 @@
         "noImplicitAny": true,
         "removeComments": true,
         "experimentalDecorators": true,
-        "module": "amd",
-        "outFile": "dist/pixi-inspector.js",
-        "sourceMap": true,
-        "declaration": true,
-        "declarationMap": true,
+        "module": "commonjs",
+        "outDir": "bin",
         "target": "es5",
         "rootDir": "src",
         "lib": [

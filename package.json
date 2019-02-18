@@ -2,13 +2,13 @@
     "name": "pixi-inspector",
     "version": "0.0.1",
     "license": "MIT",
-    "dependencies": {
-    },
+    "dependencies": {},
     "devDependencies": {
         "@types/pixi.js": "latest",
-        "typescript": "latest"
+        "typescript": "latest",
+        "pixify": "latest"
     },
     "scripts": {
-        "compile": "tsc"
+        "build": "tsc && pixify --name pixi-inspector -s ./bin/ -d ./dist/ --external false"
     }
 }
