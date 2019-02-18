@@ -23,9 +23,10 @@
     "devDependencies": {
         "@types/pixi.js": "latest",
         "typescript": "latest",
-        "pixify": "latest"
+        "pixify": "latest",
+        "rimraf": "latest"
     },
     "scripts": {
-        "build": "tsc && pixify --name pixi-inspector -s bin -d dist --external false && tsc -p tsconfig-d.json"
+        "build": "rimraf bin dist && tsc && pixify --name pixi-inspector -s bin -d dist --external false && tsc -p tsconfig-d.json"
     }
 }
