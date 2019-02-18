@@ -4,9 +4,9 @@ import DisplayObject = PIXI.DisplayObject;
 import HTMLPixiElement from "./HTMLPixiElement";
 import ElementPool from "./ElementPool";
 import AttributeParser from "./attributes/AttributeParser";
-import domAttr, {__pixi_inspector_attributes__} from "./decorators/domAttr";
-import domLeaf, {__pixi_inspector_is_leaf__} from "./decorators/domLeaf";
-import domHidden, {__pixi_inspector_is_hidden__} from "./decorators/domHidden";
+import domAttr from "./decorators/domAttr";
+import domLeaf from "./decorators/domLeaf";
+import domHidden from "./decorators/domHidden";
 import DomAttribute from "./attributes/DomAttribute";
 
 export default class PixiInspector {
@@ -77,7 +77,7 @@ export default class PixiInspector {
         element.pixiTarget = node;
         this.setElementStyle(node, element);
         this.setElementAttributes(node, element);
-        if (node instanceof Container && !(<any>node)[__pixi_inspector_is_leaf__]) {
+        if (node instanceof Container && !(<any>node)['__pixi_inspector_is_leaf__']) {
             let i = 0;
             let n = Math.min(node.children.length, element.childNodes.length);
             for (; i < n; i++) {
@@ -123,7 +123,7 @@ export default class PixiInspector {
             element.id = `px${index}`;
         }
         let style = element.pixiStyle;
-        if ((<any>node)[__pixi_inspector_is_hidden__]) {
+        if ((<any>node)['__pixi_inspector_is_hidden__']) {
             style.display = 'none';
         }
         style.top = `${(bounds.top + this._canvas.offsetTop).toFixed(2)}px`;
@@ -133,7 +133,7 @@ export default class PixiInspector {
     }
 
     private setElementAttributes(node: DisplayObject, element: HTMLPixiElement) {
-        let attributes = (<any>node)[__pixi_inspector_attributes__] as DomAttribute[];
+        let attributes = (<any>node)['__pixi_inspector_attributes__'] as DomAttribute[];
         if (attributes) {
             for (let attribute of attributes) {
                 let value;
@@ -157,7 +157,7 @@ export default class PixiInspector {
                 if (node) {
                     let name = mutation.attributeName;
                     let value = element.getAttribute(name);
-                    let attributes = (<any>node)[__pixi_inspector_attributes__] as DomAttribute[];
+                    let attributes = (<any>node)['__pixi_inspector_attributes__'] as DomAttribute[];
                     if (attributes) {
                         for (let attribute of attributes) {
                             if (attribute.name == name) {
