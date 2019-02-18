@@ -4,9 +4,7 @@ import DisplayObject = PIXI.DisplayObject;
 import HTMLPixiElement from "./HTMLPixiElement";
 import ElementPool from "./ElementPool";
 import AttributeParser from "./attributes/AttributeParser";
-import domAttr from "./decorators/domAttr";
-import domLeaf from "./decorators/domLeaf";
-import domHidden from "./decorators/domHidden";
+import {domAttr, domHidden, domLeaf} from "./decorators";
 import DomAttribute from "./attributes/DomAttribute";
 
 export default class PixiInspector {

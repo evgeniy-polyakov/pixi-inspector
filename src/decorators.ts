@@ -1,9 +1,8 @@
-import DisplayObject = PIXI.DisplayObject;
-import AttributeParser from "../attributes/AttributeParser";
-import AutoAttributeParser from "../attributes/AutoAttributeParser";
-import DomAttribute from "../attributes/DomAttribute";
+import AttributeParser from "./attributes/AttributeParser";
+import AutoAttributeParser from "./attributes/AutoAttributeParser";
+import DomAttribute from "./attributes/DomAttribute";
 
-export default function domAttr<T extends DisplayObject, P>(parser?: AttributeParser<P> | { new(): AttributeParser<P> }) {
+export function domAttr<T extends PIXI.DisplayObject, P>(parser?: AttributeParser<P> | { new(): AttributeParser<P> }) {
     return function (target: T, propertyName: string) {
         if (!target.hasOwnProperty('__pixi_inspector_class_attributes__')) {
             (<any>target)['__pixi_inspector_class_attributes__'] = [];
@@ -26,5 +25,17 @@ export default function domAttr<T extends DisplayObject, P>(parser?: AttributePa
                 }
             });
         }
+    }
+}
+
+export function domHidden<T extends PIXI.DisplayObject>() {
+    return function (constructor: { new(...args: any[]): T }) {
+        constructor.prototype['__pixi_inspector_is_hidden__'] = true;
+    }
+}
+
+export function domLeaf<T extends PIXI.DisplayObject>() {
+    return function (constructor: { new(...args: any[]): T }) {
+        constructor.prototype['__pixi_inspector_is_leaf__'] = true;
     }
 }
