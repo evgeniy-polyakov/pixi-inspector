@@ -1,6 +1,6 @@
 /*!
  * pixi-inspector - v1.0.0
- * Compiled Tue, 19 Feb 2019 07:23:40 UTC
+ * Compiled Tue, 19 Feb 2019 09:26:29 UTC
  *
  * pixi-inspector is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -257,7 +257,7 @@ var ElementPool = (function () {
     return ElementPool;
 }());
 
-},{"./decorators/domAttr":6,"./decorators/domHidden":7,"./decorators/domLeaf":8}],2:[function(require,module,exports){
+},{"./decorators/domAttr":7,"./decorators/domHidden":8,"./decorators/domLeaf":9}],2:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var PrimitiveAttributeParser_1 = require("./PrimitiveAttributeParser");
@@ -420,6 +420,29 @@ exports.PrimitiveAttributeParser = PrimitiveAttributeParser;
 },{}],6:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var TextureAttributeParser = (function () {
+    function TextureAttributeParser() {
+    }
+    TextureAttributeParser.prototype.parse = function (str, value) {
+        var texture = PIXI.utils.TextureCache[str];
+        if (texture instanceof PIXI.Texture) {
+            return texture;
+        }
+        return value;
+    };
+    TextureAttributeParser.prototype.stringify = function (value) {
+        return value.textureCacheIds[0];
+    };
+    TextureAttributeParser.prototype.visible = function (value) {
+        return !!value.textureCacheIds;
+    };
+    return TextureAttributeParser;
+}());
+exports.TextureAttributeParser = TextureAttributeParser;
+
+},{}],7:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var AutoAttributeParser_1 = require("../attributes/AutoAttributeParser");
 function domAttr(parser) {
     return function (target, propertyName) {
@@ -448,7 +471,7 @@ function domAttr(parser) {
 }
 exports.domAttr = domAttr;
 
-},{"../attributes/AutoAttributeParser":3}],7:[function(require,module,exports){
+},{"../attributes/AutoAttributeParser":3}],8:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function domHidden() {
@@ -458,7 +481,7 @@ function domHidden() {
 }
 exports.domHidden = domHidden;
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function domLeaf() {
@@ -468,11 +491,35 @@ function domLeaf() {
 }
 exports.domLeaf = domLeaf;
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var PixiInspector_1 = require("./PixiInspector");
+var PointAttributeParser_1 = require("./attributes/PointAttributeParser");
+var TextureAttributeParser_1 = require("./attributes/TextureAttributeParser");
+function getDefault(rootNode, canvas) {
+    return new PixiInspector_1.PixiInspector(rootNode, canvas)
+        .domAttr(PIXI.DisplayObject, 'x')
+        .domAttr(PIXI.DisplayObject, 'y')
+        .domAttr(PIXI.DisplayObject, 'scale', PointAttributeParser_1.PointAttributeParser)
+        .domAttr(PIXI.DisplayObject, 'rotation')
+        .domAttr(PIXI.Sprite, 'texture', TextureAttributeParser_1.TextureAttributeParser)
+        .domAttr(PIXI.Sprite, 'anchor', PointAttributeParser_1.PointAttributeParser)
+        .domAttr(PIXI.mesh.Mesh, 'texture', TextureAttributeParser_1.TextureAttributeParser)
+        .domAttr(PIXI.Text, 'text')
+        .domAttr(PIXI.Text, 'anchor', PointAttributeParser_1.PointAttributeParser)
+        .domAttr(PIXI.extras.BitmapText, 'text')
+        .domAttr(PIXI.extras.BitmapText, 'anchor', PointAttributeParser_1.PointAttributeParser);
+}
+exports.getDefault = getDefault;
+
+},{"./PixiInspector":1,"./attributes/PointAttributeParser":4,"./attributes/TextureAttributeParser":6}],11:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var PixiInspector_1 = require("./PixiInspector");
 exports.PixiInspector = PixiInspector_1.PixiInspector;
+var getDefault_1 = require("./getDefault");
+exports.getDefault = getDefault_1.getDefault;
 var domAttr_1 = require("./decorators/domAttr");
 exports.domAttr = domAttr_1.domAttr;
 var domLeaf_1 = require("./decorators/domLeaf");
@@ -485,8 +532,10 @@ var PointAttributeParser_1 = require("./attributes/PointAttributeParser");
 exports.PointAttributeParser = PointAttributeParser_1.PointAttributeParser;
 var ArrayAttributeParser_1 = require("./attributes/ArrayAttributeParser");
 exports.ArrayAttributeParser = ArrayAttributeParser_1.ArrayAttributeParser;
+var TextureAttributeParser_1 = require("./attributes/TextureAttributeParser");
+exports.TextureAttributeParser = TextureAttributeParser_1.TextureAttributeParser;
 
-},{"./PixiInspector":1,"./attributes/ArrayAttributeParser":2,"./attributes/PointAttributeParser":4,"./attributes/PrimitiveAttributeParser":5,"./decorators/domAttr":6,"./decorators/domHidden":7,"./decorators/domLeaf":8}],10:[function(require,module,exports){
+},{"./PixiInspector":1,"./attributes/ArrayAttributeParser":2,"./attributes/PointAttributeParser":4,"./attributes/PrimitiveAttributeParser":5,"./attributes/TextureAttributeParser":6,"./decorators/domAttr":7,"./decorators/domHidden":8,"./decorators/domLeaf":9,"./getDefault":10}],12:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 if (typeof PIXI === 'undefined') {
@@ -505,7 +554,7 @@ if (typeof module !== "undefined" && module.exports) {
     module.exports = inspector;
 }
 
-},{"./inspector":9}]},{},[10])(10)
+},{"./inspector":11}]},{},[12])(12)
 });
 
 
