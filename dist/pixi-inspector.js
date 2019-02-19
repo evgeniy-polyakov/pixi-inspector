@@ -1,6 +1,6 @@
 /*!
  * pixi-inspector - v1.0.0
- * Compiled Tue, 19 Feb 2019 09:26:29 UTC
+ * Compiled Tue, 19 Feb 2019 09:53:26 UTC
  *
  * pixi-inspector is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -503,6 +503,7 @@ function getDefault(rootNode, canvas) {
         .domAttr(PIXI.DisplayObject, 'y')
         .domAttr(PIXI.DisplayObject, 'scale', PointAttributeParser_1.PointAttributeParser)
         .domAttr(PIXI.DisplayObject, 'rotation')
+        .domAttr(PIXI.DisplayObject, 'alpha')
         .domAttr(PIXI.Sprite, 'texture', TextureAttributeParser_1.TextureAttributeParser)
         .domAttr(PIXI.Sprite, 'anchor', PointAttributeParser_1.PointAttributeParser)
         .domAttr(PIXI.mesh.Mesh, 'texture', TextureAttributeParser_1.TextureAttributeParser)
