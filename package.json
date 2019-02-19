@@ -24,7 +24,8 @@
         "@types/pixi.js": "latest",
         "typescript": "latest",
         "pixify": "latest",
-        "rimraf": "latest"
+        "rimraf": "latest",
+        "lodash": "latest"
     },
     "scripts": {
         "build": "rimraf bin dist && tsc && pixify --name pixi-inspector -s bin -d dist --external false && tsc -p tsconfig-d.json && node ./build/declare-namespace.js"
