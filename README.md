@@ -5,10 +5,10 @@ inspected and modified in browser development tools.
 
 ## Getting Started
 
-Create PixiJS application and initialize default inspector
+Create PixiJS application and initialize default inspector:
 ```javascript
 var app = new PIXI.Application();
-PIXI.inspector.getDefault(app.stage, app.view);
+var inspector = PIXI.inspector.getDefault(app.stage, app.view);
 //... add display objects to your app
 ```
 
@@ -20,6 +20,14 @@ Attributes of each element can be modified, the modification reflects the displa
 For example changing `x` attribute of an element will change the `x` position of the corresponding
 display object.
 
+If you want to configure inspector attributes from scratch use the constructor: 
+```javascript
+var app = new PIXI.Application();
+var inspector = new PIXI.inspector.PixiInspector(app.stage, app.view);
+//... configure the inspector
+//... add display objects to your app
+```
+
 ## Browsing Elements
 
 1. The elements can be selected in browser DOM inspector like it's usually done for regular html.
@@ -28,5 +36,59 @@ are highlighted by white rectangle. Selecting an element in this mode sets varia
 to the corresponding display object that can be used in the console.
 
 ## Configuration
-### Configuring Attributes
-### Using Decorators
+
+### Attributes
+Set the attribute displayed in DOM inspector: 
+```javascript
+inspector
+    .domAttr(PIXI.DisplayObject, 'x')
+    .domAttr(PIXI.DisplayObject, 'y');
+```
+By default the attribute can parse primitive (string, number, boolean) or array of primitives.
+If your object property is more complex use a custom attribute parser:
+```javascript
+inspector.domAttr(PIXI.DisplayObject, 'scale', PIXI.inspector.PointAttributeParser);
+```
+
+### Leaf Nodes
+Set the type of leaf nodes in DOM inspector: 
+```javascript
+inspector.domLeaf(PIXI.spine.Spine);
+```
+That means that `Spine` objects are treated as single element without children.
+
+### Hidden Nodes
+Set the type of hidden nodes in DOM inspector:
+```javascript
+inspector.domHidden(PIXI.Graphics);
+```
+That means that `Graphics` objects are all hidden in DOM inspector.
+
+## Decorators
+Instead of configuring attributes and nodes in the inspector you can use
+[Typescript decorators](https://www.typescriptlang.org/docs/handbook/decorators.html)
+to configure them directly in your classes.
+
+### Attributes
+```typescript
+class MySprite extends PIXI.Sprite {
+    @domAttr() readonly myNumber = 0;
+    @domAttr(PIXI.inspector.PointAttributeParser) readonly myPoint = {x:0, y:0};
+}
+```
+
+### Leaf Nodes
+```typescript
+@domLeaf()
+class MySprite extends PIXI.Sprite {
+}
+```
+
+### Hidden Nodes
+```typescript
+@domHidden()
+class MySprite extends PIXI.Sprite {
+}
+```
+
+## Attribute Parsers
