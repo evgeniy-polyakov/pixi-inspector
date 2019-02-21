@@ -20,7 +20,8 @@ Attributes of each element can be modified, the modification reflects the displa
 For example changing `x` attribute of an element will change the `x` position of the corresponding
 display object.
 
-If you want to configure inspector attributes from scratch use the constructor: 
+If you want to configure the inspector from scratch use the constructor.
+Empty inspector does not show any attributes, just a tree of elements. 
 ```javascript
 var app = new PIXI.Application();
 var inspector = new PIXI.inspector.PixiInspector(app.stage, app.view);
@@ -107,7 +108,13 @@ inspector.domAttr(PIXI.extras.AnimatedSprite, 'textures',
 ```
 ### Point
 Parses objects with `x` and `y` numeric properties.
+The attribute is in form `"x,y"` or `"x"` if `x` and `y` are equal.  
 You can set precision of numbers in the constructor argument, by default it's `2`.
 ```javascript
 inspector.domAttr(PIXI.Sprite, 'anchor', new PIXI.inspector.PointAttributeParser(3));
+```
+### Color
+Parses numbers as color values. The attribute is in form `#RRGGBB`.
+```javascript
+inspector.domAttr(PIXI.Sprite, 'tint', PIXI.inspector.ColorAttributeParser);
 ```

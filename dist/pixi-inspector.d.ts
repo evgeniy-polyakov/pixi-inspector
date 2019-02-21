@@ -104,6 +104,11 @@ declare namespace PIXI.inspector {
         stringify(value: PIXI.Texture): string;
         visible(value: PIXI.Texture): boolean;
     }
+    export class ColorAttributeParser implements AttributeParser<number> {
+        parse(str: string, value?: number): number;
+        stringify(value: number): string;
+        visible(value: number | string): boolean;
+    }
     export function getDefault(rootNode: PIXI.Container, canvas: HTMLCanvasElement): PixiInspector;
 }
 //# sourceMappingURL=pixi-inspector.d.ts.map
