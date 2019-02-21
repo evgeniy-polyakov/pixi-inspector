@@ -92,3 +92,22 @@ class MySprite extends PIXI.Sprite {
 ```
 
 ## Attribute Parsers
+Attribute parsers maps property of display object to DOM attribute and vice versa.
+### Primitive
+Parses string, number or boolean value.
+You can set precision of numbers in the constructor argument, by default it's `2`.
+```javascript
+inspector.domAttr(PIXI.DisplayObject, 'x', new PIXI.inspector.PrimitiveAttributeParser(3));
+```
+### Array
+Parses arrays. You can set array element parser which by default is `PrimitiveAttributeParser`.
+```javascript
+inspector.domAttr(PIXI.extras.AnimatedSprite, 'textures',
+    new PIXI.inspector.ArrayAttributeParser(new PIXI.inspector.TextureAttributeParser()));
+```
+### Point
+Parses objects with `x` and `y` numeric properties.
+You can set precision of numbers in the constructor argument, by default it's `2`.
+```javascript
+inspector.domAttr(PIXI.Sprite, 'anchor', new PIXI.inspector.PointAttributeParser(3));
+```
