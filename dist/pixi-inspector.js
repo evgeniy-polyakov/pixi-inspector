@@ -1,6 +1,6 @@
 /*!
- * pixi-inspector - v1.0.1
- * Compiled Thu, 21 Feb 2019 10:56:38 UTC
+ * pixi-inspector - v1.0.2
+ * Compiled Thu, 21 Feb 2019 11:13:11 UTC
  *
  * pixi-inspector is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license

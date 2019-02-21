@@ -118,3 +118,9 @@ Parses numbers as color values. The attribute is in form `#RRGGBB`.
 ```javascript
 inspector.domAttr(PIXI.Sprite, 'tint', PIXI.inspector.ColorAttributeParser);
 ```
+### Texture
+Parses `PIXI.Texture` objects. The attribute has value of texture key in the global cache.
+Usually it's the name of texture file.
+```javascript
+inspector.domAttr(PIXI.Sprite, 'texture', PIXI.inspector.TextureAttributeParser);
+```
