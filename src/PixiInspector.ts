@@ -149,13 +149,13 @@ export class PixiInspector {
                 let element = mutation.target as HTMLPixiElement;
                 let node = element.pixiTarget;
                 if (node) {
-                    let name = mutation.attributeName;
-                    let value = element.getAttribute(name);
+                    let value = element.getAttribute(mutation.attributeName);
+                    let name = mutation.attributeName.toLowerCase();
                     let attributes = (<any>node)['__pixi_inspector_attributes__'] as DomAttribute[];
                     if (attributes) {
                         for (let attribute of attributes) {
-                            if (attribute.name == name) {
-                                (<any>node)[name] = attribute.parser.parse(value, (<any>node)[name]);
+                            if (attribute.name.toLowerCase() == name) {
+                                (<any>node)[attribute.name] = attribute.parser.parse(value, (<any>node)[attribute.name]);
                                 break;
                             }
                         }

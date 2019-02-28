@@ -1,6 +1,6 @@
 /*!
- * pixi-inspector - v1.0.2
- * Compiled Thu, 21 Feb 2019 11:13:11 UTC
+ * pixi-inspector - v1.0.3
+ * Compiled Thu, 28 Feb 2019 09:05:07 UTC
  *
  * pixi-inspector is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -146,14 +146,14 @@ var PixiInspector = (function () {
                 var element = mutation.target;
                 var node = element.pixiTarget;
                 if (node) {
-                    var name_1 = mutation.attributeName;
-                    var value = element.getAttribute(name_1);
+                    var value = element.getAttribute(mutation.attributeName);
+                    var name_1 = mutation.attributeName.toLowerCase();
                     var attributes = node['__pixi_inspector_attributes__'];
                     if (attributes) {
                         for (var _a = 0, attributes_2 = attributes; _a < attributes_2.length; _a++) {
                             var attribute = attributes_2[_a];
-                            if (attribute.name == name_1) {
-                                node[name_1] = attribute.parser.parse(value, node[name_1]);
+                            if (attribute.name.toLowerCase() == name_1) {
+                                node[attribute.name] = attribute.parser.parse(value, node[attribute.name]);
                                 break;
                             }
                         }
