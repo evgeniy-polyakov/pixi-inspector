@@ -26,8 +26,8 @@ export class PointAttributeParser implements AttributeParser<{ x: number, y: num
 
     stringify(value: { x: number, y: number }): string {
         if (value) {
-            let x = (value.x || 0).toFixed(this.numberPrecision);
-            let y = (value.y || 0).toFixed(this.numberPrecision);
+            let x = Number(value.x || 0).toFixed(this.numberPrecision);
+            let y = Number(value.y || 0).toFixed(this.numberPrecision);
             return x == y ? x : x + ',' + y;
         }
         return '';
