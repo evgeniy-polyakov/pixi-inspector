@@ -26,14 +26,14 @@ export class PointAttributeParser implements AttributeParser<{ x: number, y: num
 
     stringify(value: { x: number, y: number }): string {
         if (value) {
-            let x = value.x.toFixed(this.numberPrecision);
-            let y = value.y.toFixed(this.numberPrecision);
+            let x = (value.x || 0).toFixed(this.numberPrecision);
+            let y = (value.y || 0).toFixed(this.numberPrecision);
             return x == y ? x : x + ',' + y;
         }
         return '';
     }
 
     visible(value: { x: number, y: number }): boolean {
-        return value != null;
+        return value != null && !isNaN(value.x) && !isNaN(value.y);
     }
 }

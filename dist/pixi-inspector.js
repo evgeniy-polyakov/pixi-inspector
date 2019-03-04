@@ -1,6 +1,6 @@
 /*!
- * pixi-inspector - v1.0.3
- * Compiled Thu, 28 Feb 2019 09:05:07 UTC
+ * pixi-inspector - v1.0.4
+ * Compiled Mon, 04 Mar 2019 09:01:57 UTC
  *
  * pixi-inspector is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license
@@ -384,14 +384,14 @@ var PointAttributeParser = (function () {
     };
     PointAttributeParser.prototype.stringify = function (value) {
         if (value) {
-            var x = value.x.toFixed(this.numberPrecision);
-            var y = value.y.toFixed(this.numberPrecision);
+            var x = (value.x || 0).toFixed(this.numberPrecision);
+            var y = (value.y || 0).toFixed(this.numberPrecision);
             return x == y ? x : x + ',' + y;
         }
         return '';
     };
     PointAttributeParser.prototype.visible = function (value) {
-        return value != null;
+        return value != null && !isNaN(value.x) && !isNaN(value.y);
     };
     return PointAttributeParser;
 }());

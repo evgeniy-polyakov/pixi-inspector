@@ -1,7 +1,7 @@
 {
     "name": "pixi-inspector",
     "description": "Browsing and changing attributes of PixiJS display objects in DOM inspector.",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "license": "MIT",
     "repository": {
         "type": "git",
