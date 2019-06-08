@@ -1,7 +1,7 @@
 {
     "name": "pixi-inspector",
     "description": "Browsing and changing attributes of PixiJS display objects in DOM inspector.",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "license": "MIT",
     "repository": {
         "type": "git",
@@ -19,13 +19,14 @@
         "package.json",
         "README.md"
     ],
-    "dependencies": {},
+    "dependencies": {
+        "@types/pixi.js": "^4.8.7"
+    },
     "devDependencies": {
-        "@types/pixi.js": "latest",
-        "typescript": "latest",
+        "lodash": "latest",
         "pixify": "latest",
         "rimraf": "latest",
-        "lodash": "latest"
+        "typescript": "^3.5.1"
     },
     "scripts": {
         "build": "rimraf bin dist && tsc && pixify --name pixi-inspector -s bin -d dist --external false && tsc -p tsconfig-d.json && node ./build/declare-namespace.js"
