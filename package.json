@@ -20,16 +20,15 @@
         "README.md"
     ],
     "dependencies": {
-        "pixi.js": "^4.8.8"
+        "pixi.js": "^5.3.9"
     },
     "devDependencies": {
-        "@types/pixi.js": "^4.8.7",
         "lodash": "latest",
         "pixify": "latest",
         "rimraf": "latest",
-        "typescript": "^3.5.1"
+        "typescript": "^4.2.4"
     },
     "scripts": {
-        "build": "rimraf bin dist && tsc && pixify --name pixi-inspector -s bin -d dist --external false && tsc -p tsconfig-d.json && node ./build/declare-namespace.js"
+        "build": "rimraf bin dist && tsc && pixify --name pixi-inspector -s bin -d dist --external false && tsc -p tsconfig-d.json"
     }
 }
