@@ -1,17 +1,6 @@
-/*!
- * pixi-inspector - v1.0.7
- * Compiled Sat, 24 Apr 2021 22:01:16 UTC
- *
- * pixi-inspector is licensed under the MIT License.
- * http://www.opensource.org/licenses/mit-license
- */
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.pixiInspector = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ContextMenu = void 0;
-var PIXI = require("pixi.js");
-var inspect_1 = require("./inspect");
-var ContextMenu = (function () {
+(function(g,f){typeof exports==='object'&&typeof module!=='undefined'?f(exports,require('pixi.js')):typeof define==='function'&&define.amd?define(['exports','pixi.js'],f):(g=typeof globalThis!=='undefined'?globalThis:g||self,f(g['pixi-inspector']={},g.PIXI));}(this,(function(exports, PIXI){'use strict';function _interopNamespace(e){if(e&&e.__esModule)return e;var n=Object.create(null);if(e){Object.keys(e).forEach(function(k){if(k!=='default'){var d=Object.getOwnPropertyDescriptor(e,k);Object.defineProperty(n,k,d.get?d:{enumerable:true,get:function(){return e[k];}});}});}n['default']=e;return Object.freeze(n);}var PIXI__namespace=/*#__PURE__*/_interopNamespace(PIXI);function inspect() {
+    debugger; // eslint-disable-line
+}var ContextMenu = /** @class */ (function () {
     function ContextMenu(event, renderer, data, style) {
         var _this = this;
         var div = document.createElement("div");
@@ -59,11 +48,11 @@ var ContextMenu = (function () {
     ContextMenu.prototype.getItemName = function (data, id) {
         var name = "<span>" + this.getClassName(data.target) + "</span>";
         var texture = data.target.texture;
-        if (texture instanceof PIXI.Texture) {
+        if (texture instanceof PIXI__namespace.Texture) {
             data.texture = texture;
-            name += "<span>:&nbsp;</span><span data-texture=\"" + id + "\">" + (texture === PIXI.Texture.EMPTY ? "<u>empty</u>" :
-                texture === PIXI.Texture.WHITE ? "<u>white</u>" :
-                    texture instanceof PIXI.RenderTexture ? "<u>rendered</u>" :
+            name += "<span>:&nbsp;</span><span data-texture=\"" + id + "\">" + (texture === PIXI__namespace.Texture.EMPTY ? "<u>empty</u>" :
+                texture === PIXI__namespace.Texture.WHITE ? "<u>white</u>" :
+                    texture instanceof PIXI__namespace.RenderTexture ? "<u>rendered</u>" :
                         texture.textureCacheIds && texture.textureCacheIds.length > 0 ?
                             texture.textureCacheIds.slice(0, 2).map(function (it) { return "<u>" + it + "</u>"; }).join("<span>,&nbsp</span>") :
                             "<u>unnamed</u>") + "</span>";
@@ -99,7 +88,7 @@ var ContextMenu = (function () {
         if (ids) {
             var data = this.getData(this._data, ids);
             if (data) {
-                inspect_1.inspect.call(data.target);
+                inspect.call(data.target);
             }
         }
     };
@@ -116,10 +105,10 @@ var ContextMenu = (function () {
             if (renderer && renderer.extract && typeof renderer.extract.image === "function") {
                 var vw = 12;
                 var size = window.innerWidth * vw / 100;
-                var sprite = new PIXI.Sprite(data.texture);
+                var sprite = new PIXI__namespace.Sprite(data.texture);
                 var scale = Math.min(1, size / sprite.width, size / sprite.height);
                 sprite.scale.set(scale);
-                var container = new PIXI.Container();
+                var container = new PIXI__namespace.Container();
                 container.addChild(sprite);
                 var canvas = renderer.extract.canvas(container);
                 var rootRect = this._root.getBoundingClientRect();
@@ -153,20 +142,12 @@ var ContextMenu = (function () {
         }
     };
     return ContextMenu;
-}());
-exports.ContextMenu = ContextMenu;
-
-},{"./inspect":4,"pixi.js":undefined}],2:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.PixiInspector = void 0;
-var PIXI = require("pixi.js");
-var ContextMenu_1 = require("./ContextMenu");
-var StyleSheet_1 = require("./StyleSheet");
-var PixiInspector = (function () {
+}());// language=CSS
+var StyleSheet = "\n    .pixi-inspector-context-menu,\n    .pixi-inspector-context-menu ul {\n        list-style: none;\n        margin: 0;\n        padding: 0;\n    }\n\n    .pixi-inspector-texture-popup,\n    .pixi-inspector-context-menu {\n        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\n        font-size: 12px;\n        color: #202124;\n        background: #fff;\n        border: 1px solid #dadce0;\n        box-shadow: 4px 4px 3px -1px rgba(0, 0, 0, 0.5);\n        line-height: 1.2;\n        max-height: 100vh;\n        max-width: 100vw;\n        overflow: auto;\n    }\n\n    .pixi-inspector-context-menu > li:first-child {\n        padding-top: 0.25em;\n    }\n\n    .pixi-inspector-context-menu > li:last-child {\n        padding-bottom: 0.25em;\n    }\n\n    .pixi-inspector-context-menu ul li {\n        padding: 0;\n        position: relative;\n    }\n\n    .pixi-inspector-context-menu li label {\n        display: block;\n        padding: 0 1.4em;\n        white-space: nowrap;\n        cursor: pointer;\n    }\n\n    .pixi-inspector-context-menu li label span {\n        padding: 0.3em 0;\n        display: inline-block;\n    }\n\n    .pixi-inspector-context-menu li label:hover {\n        background: #c8c8c9;\n    }\n\n    .pixi-inspector-context-menu ul > li > .branch {\n        position: absolute;\n        top: 0;\n        left: 0;\n        height: 100%;\n        width: 0.8em;\n        border-left: #72777c 1px dotted;\n        pointer-events: none;\n    }\n\n    .pixi-inspector-context-menu ul > li > .branch:before {\n        content: '';\n        position: absolute;\n        top: 0.9em;\n        left: 0;\n        width: 100%;\n        border-top: #72777c 1px dotted;\n    }\n\n    .pixi-inspector-context-menu ul > li:last-child > .branch {\n        height: 0.8em;\n    }\n\n    .pixi-inspector-context-menu li[data-visible=false] {\n        color: #72777c;\n    }\n\n    .pixi-inspector-context-menu span[data-texture] u {\n        text-decoration: underline;\n    }\n\n    .pixi-inspector-texture-popup {\n        min-width: 72px;\n        object-fit: contain;\n        object-position: center;\n        pointer-events: none;\n        background-image: url(\"data:image/svg+xml;utf8," + encodeURIComponent('<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><rect height="12" width="12" y="0" x="12" fill="#dadce0"/><rect height="12" width="12" y="12" x="0" fill="#dadce0"/></svg>') + "\");\n    }\n\n    .pixi-inspector-texture-popup-dark {\n        background-image: url(\"data:image/svg+xml;utf8," + encodeURIComponent('<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><rect height="12" width="12" y="0" x="12" fill="#3c4043"/><rect height="12" width="12" y="12" x="0" fill="#3c4043"/></svg>') + "\");\n    }\n\n    .pixi-inspector-context-menu-dark,\n    .pixi-inspector-texture-popup-dark {\n        color: #e8eaed;\n        background-color: #292a2d;\n        border-color: #3c4043;\n    }\n\n    .pixi-inspector-context-menu-dark li label:hover {\n        background-color: #4b4c4f;\n    }\n\n    .pixi-inspector-context-menu-dark ul > li > .branch,\n    .pixi-inspector-context-menu-dark ul > li > .branch:before {\n        border-color: #8b9196;\n    }\n\n    .pixi-inspector-context-menu-dark li[data-visible=false] {\n        color: #8b9196;\n    }\n";
+var PixiInspector = /** @class */ (function () {
     function PixiInspector(root, renderer, style) {
         var _this = this;
-        this._tempRect = new PIXI.Rectangle();
+        this._tempRect = new PIXI__namespace.Rectangle();
         this._enabled = false;
         this.disablePixiRightClick = function (event) {
             if (event.target === _this._renderer.view) {
@@ -191,7 +172,7 @@ var PixiInspector = (function () {
                     if (_this._contextMenu) {
                         _this._contextMenu.destroy();
                     }
-                    _this._contextMenu = new ContextMenu_1.ContextMenu(event, _this._renderer, data, _this._style);
+                    _this._contextMenu = new ContextMenu(event, _this._renderer, data, _this._style);
                 }
             }
         };
@@ -232,7 +213,7 @@ var PixiInspector = (function () {
         return point;
     };
     PixiInspector.prototype.flattenDescendants = function (target, result) {
-        if (target instanceof PIXI.Container && target.children.length > 0) {
+        if (target instanceof PIXI__namespace.Container && target.children.length > 0) {
             for (var _i = 0, _a = target.children; _i < _a.length; _i++) {
                 var child = _a[_i];
                 this.flattenDescendants(child, result);
@@ -284,48 +265,11 @@ var PixiInspector = (function () {
     };
     PixiInspector.prototype.createStyleSheet = function () {
         var element = document.createElement("style");
-        element.innerText = StyleSheet_1.StyleSheet;
+        element.innerText = StyleSheet;
         return element;
     };
     PixiInspector.prototype.detectStyle = function () {
         return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
     };
     return PixiInspector;
-}());
-exports.PixiInspector = PixiInspector;
-
-},{"./ContextMenu":1,"./StyleSheet":3,"pixi.js":undefined}],3:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.StyleSheet = void 0;
-exports.StyleSheet = "\n    .pixi-inspector-context-menu,\n    .pixi-inspector-context-menu ul {\n        list-style: none;\n        margin: 0;\n        padding: 0;\n    }\n\n    .pixi-inspector-texture-popup,\n    .pixi-inspector-context-menu {\n        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\n        font-size: 12px;\n        color: #202124;\n        background: #fff;\n        border: 1px solid #dadce0;\n        box-shadow: 4px 4px 3px -1px rgba(0, 0, 0, 0.5);\n        line-height: 1.2;\n        max-height: 100vh;\n        max-width: 100vw;\n        overflow: auto;\n    }\n\n    .pixi-inspector-context-menu > li:first-child {\n        padding-top: 0.25em;\n    }\n\n    .pixi-inspector-context-menu > li:last-child {\n        padding-bottom: 0.25em;\n    }\n\n    .pixi-inspector-context-menu ul li {\n        padding: 0;\n        position: relative;\n    }\n\n    .pixi-inspector-context-menu li label {\n        display: block;\n        padding: 0 1.4em;\n        white-space: nowrap;\n        cursor: pointer;\n    }\n\n    .pixi-inspector-context-menu li label span {\n        padding: 0.3em 0;\n        display: inline-block;\n    }\n\n    .pixi-inspector-context-menu li label:hover {\n        background: #c8c8c9;\n    }\n\n    .pixi-inspector-context-menu ul > li > .branch {\n        position: absolute;\n        top: 0;\n        left: 0;\n        height: 100%;\n        width: 0.8em;\n        border-left: #72777c 1px dotted;\n        pointer-events: none;\n    }\n\n    .pixi-inspector-context-menu ul > li > .branch:before {\n        content: '';\n        position: absolute;\n        top: 0.9em;\n        left: 0;\n        width: 100%;\n        border-top: #72777c 1px dotted;\n    }\n\n    .pixi-inspector-context-menu ul > li:last-child > .branch {\n        height: 0.8em;\n    }\n\n    .pixi-inspector-context-menu li[data-visible=false] {\n        color: #72777c;\n    }\n\n    .pixi-inspector-context-menu span[data-texture] u {\n        text-decoration: underline;\n    }\n\n    .pixi-inspector-texture-popup {\n        min-width: 72px;\n        object-fit: contain;\n        object-position: center;\n        pointer-events: none;\n        background-image: url(\"data:image/svg+xml;utf8," + encodeURIComponent('<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><rect height="12" width="12" y="0" x="12" fill="#dadce0"/><rect height="12" width="12" y="12" x="0" fill="#dadce0"/></svg>') + "\");\n    }\n\n    .pixi-inspector-texture-popup-dark {\n        background-image: url(\"data:image/svg+xml;utf8," + encodeURIComponent('<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><rect height="12" width="12" y="0" x="12" fill="#3c4043"/><rect height="12" width="12" y="12" x="0" fill="#3c4043"/></svg>') + "\");\n    }\n\n    .pixi-inspector-context-menu-dark,\n    .pixi-inspector-texture-popup-dark {\n        color: #e8eaed;\n        background-color: #292a2d;\n        border-color: #3c4043;\n    }\n\n    .pixi-inspector-context-menu-dark li label:hover {\n        background-color: #4b4c4f;\n    }\n\n    .pixi-inspector-context-menu-dark ul > li > .branch,\n    .pixi-inspector-context-menu-dark ul > li > .branch:before {\n        border-color: #8b9196;\n    }\n\n    .pixi-inspector-context-menu-dark li[data-visible=false] {\n        color: #8b9196;\n    }\n";
-
-},{}],4:[function(require,module,exports){
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.inspect = void 0;
-function inspect() {
-    debugger;
-}
-exports.inspect = inspect;
-
-},{}],5:[function(require,module,exports){
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __exportStar = (this && this.__exportStar) || function(m, exports) {
-    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./PixiInspector"), exports);
-
-},{"./PixiInspector":2}]},{},[5])(5)
-});
-
-
-//# sourceMappingURL=pixi-inspector.js.map
+}());exports.PixiInspector=PixiInspector;Object.defineProperty(exports,'__esModule',{value:true});})));

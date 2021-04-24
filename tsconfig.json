@@ -1,14 +1,11 @@
 {
     "compilerOptions": {
         "strict": true,
-        "strictNullChecks": false,
-        "noImplicitAny": true,
-        "removeComments": true,
-        "experimentalDecorators": true,
-        "module": "commonjs",
-        "outDir": "bin",
+        "module": "ESNext",
+        "outDir": "dist",
         "target": "es5",
         "rootDir": "src",
+        "moduleResolution": "Node",
         "lib": [
             "es5",
             "dom"
