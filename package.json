@@ -19,6 +19,8 @@
         "package.json",
         "README.md"
     ],
+    "main": "dist/pixi-inspector.js",
+    "types": "dist/pixi-inspector.d.ts",
     "peerDependencies": {
         "pixi.js": "^5.0.0"
     },
