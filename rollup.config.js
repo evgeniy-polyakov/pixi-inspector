@@ -1,7 +1,7 @@
 import typescript from '@rollup/plugin-typescript';
 
 export default {
-    input: 'src/index.ts',
+    input: 'src/PixiInspector.ts',
     output: {
         name: 'pixi-inspector',
         file: 'dist/pixi-inspector.js',

@@ -31,6 +31,6 @@
         "@rollup/plugin-typescript": "^8.2.1"
     },
     "scripts": {
-        "build": "rimraf dist && rollup -c"
+        "build": "rimraf dist && rollup -c && tsc --out dist/pixi-inspector.d.ts"
     }
 }
