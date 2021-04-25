@@ -80,7 +80,7 @@ export class ContextMenu {
                     texture === PIXI.Texture.WHITE ? "<u>white</u>" :
                         texture instanceof PIXI.RenderTexture ? "<u>rendered</u>" :
                             texture.textureCacheIds && texture.textureCacheIds.length > 0 ?
-                                texture.textureCacheIds.slice(0, 2).map(it => `<u>${it}</u>`).join("<span>,&nbsp</span>") :
+                                texture.textureCacheIds.slice(0, 2).map(it => `<u>${it}</u>`).join(",&nbsp") :
                                 "<u>unnamed</u>"
             }</span>`
         }

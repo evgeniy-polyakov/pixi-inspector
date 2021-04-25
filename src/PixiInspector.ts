@@ -29,7 +29,7 @@ export class PixiInspector {
     }
 
     set enabled(value) {
-        if (this._enabled != value) {
+        if (this._enabled !== value) {
             this._enabled = value;
             if (value) {
                 document.head.appendChild(this._styleSheet);

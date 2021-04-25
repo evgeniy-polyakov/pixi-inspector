@@ -54,7 +54,7 @@
                 texture === PIXI__namespace.Texture.WHITE ? "<u>white</u>" :
                     texture instanceof PIXI__namespace.RenderTexture ? "<u>rendered</u>" :
                         texture.textureCacheIds && texture.textureCacheIds.length > 0 ?
-                            texture.textureCacheIds.slice(0, 2).map(function (it) { return "<u>" + it + "</u>"; }).join("<span>,&nbsp</span>") :
+                            texture.textureCacheIds.slice(0, 2).map(function (it) { return "<u>" + it + "</u>"; }).join(",&nbsp") :
                             "<u>unnamed</u>") + "</span>";
         }
         return name;
@@ -188,7 +188,7 @@ var PixiInspector = /** @class */ (function () {
             return this._enabled;
         },
         set: function (value) {
-            if (this._enabled != value) {
+            if (this._enabled !== value) {
                 this._enabled = value;
                 if (value) {
                     document.head.appendChild(this._styleSheet);
