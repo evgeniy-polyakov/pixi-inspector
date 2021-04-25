@@ -1,7 +1,7 @@
 {
     "name": "pixi-inspector",
     "description": "Browsing and changing attributes of PixiJS display objects in DOM inspector.",
-    "version": "1.0.7",
+    "version": "2.0.0",
     "license": "MIT",
     "repository": {
         "type": "git",
@@ -19,8 +19,8 @@
         "package.json",
         "README.md"
     ],
-    "main": "dist/pixi-inspector.js",
-    "types": "dist/pixi-inspector.d.ts",
+    "main": "./dist/pixi-inspector.js",
+    "types": "./dist/pixi-inspector.d.ts",
     "peerDependencies": {
         "pixi.js": "^5.0.0"
     },
@@ -33,6 +33,6 @@
         "@rollup/plugin-typescript": "^8.2.1"
     },
     "scripts": {
-        "build": "rimraf dist && rollup -c && tsc --out dist/pixi-inspector.d.ts"
+        "build": "rimraf dist && rollup -c && tsc && node build/fix-typings.js"
     }
 }
