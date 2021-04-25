@@ -1,8 +1,7 @@
-(function(g,f){typeof exports==='object'&&typeof module!=='undefined'?f(exports,require('pixi.js')):typeof define==='function'&&define.amd?define(['exports','pixi.js'],f):(g=typeof globalThis!=='undefined'?globalThis:g||self,f(g['pixi-inspector']={},g.PIXI));}(this,(function(exports, PIXI){'use strict';function _interopNamespace(e){if(e&&e.__esModule)return e;var n=Object.create(null);if(e){Object.keys(e).forEach(function(k){if(k!=='default'){var d=Object.getOwnPropertyDescriptor(e,k);Object.defineProperty(n,k,d.get?d:{enumerable:true,get:function(){return e[k];}});}});}n['default']=e;return Object.freeze(n);}var PIXI__namespace=/*#__PURE__*/_interopNamespace(PIXI);function inspect() {
-    debugger; // eslint-disable-line
-}var ContextMenu = /** @class */ (function () {
+(function(g,f){typeof exports==='object'&&typeof module!=='undefined'?f(exports,require('pixi.js')):typeof define==='function'&&define.amd?define(['exports','pixi.js'],f):(g=typeof globalThis!=='undefined'?globalThis:g||self,f(g['pixi-inspector']={},g.PIXI));}(this,(function(exports, PIXI){'use strict';function _interopNamespace(e){if(e&&e.__esModule)return e;var n=Object.create(null);if(e){Object.keys(e).forEach(function(k){if(k!=='default'){var d=Object.getOwnPropertyDescriptor(e,k);Object.defineProperty(n,k,d.get?d:{enumerable:true,get:function(){return e[k];}});}});}n['default']=e;return Object.freeze(n);}var PIXI__namespace=/*#__PURE__*/_interopNamespace(PIXI);var ContextMenu = /** @class */ (function () {
     function ContextMenu(event, renderer, data, style) {
         var _this = this;
+        this._inspect = new Function("console.dir(this); debugger;");
         var div = document.createElement("div");
         div.style.position = "fixed";
         div.className = "pixi-inspector-context-anchor";
@@ -88,7 +87,7 @@
         if (ids) {
             var data = this.getData(this._data, ids);
             if (data) {
-                inspect.call(data.target);
+                this._inspect.call(data.target);
             }
         }
     };

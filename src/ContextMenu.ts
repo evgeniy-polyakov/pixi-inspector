@@ -1,5 +1,4 @@
 import * as PIXI from "pixi.js";
-import {inspect} from "./inspect";
 
 export interface IContextMenuData {
     target: PIXI.DisplayObject;
@@ -13,6 +12,7 @@ export class ContextMenu {
     private readonly _root: HTMLElement;
     private readonly _renderer: PIXI.AbstractRenderer;
     private readonly _style: string;
+    private readonly _inspect = new Function("console.dir(this); debugger;");
     private _textureImage?: HTMLElement;
 
     constructor(event: MouseEvent, renderer: PIXI.AbstractRenderer, data: IContextMenuData, style: string) {
@@ -116,7 +116,7 @@ export class ContextMenu {
         if (ids) {
             const data = this.getData(this._data, ids);
             if (data) {
-                inspect.call(data.target);
+                this._inspect.call(data.target);
             }
         }
     }
