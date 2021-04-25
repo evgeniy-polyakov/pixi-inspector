@@ -21,7 +21,7 @@
     class Bunny extends PIXI.Container {
         constructor() {
             super();
-            this.addChild(new PIXI.Sprite(texture));
+            this.addChild(new PIXI.Sprite(texture)).anchor.set(0.5);
         }
     }
 
@@ -32,18 +32,20 @@
             child.scale.set(Math.random() * 4 + 1);
         } else {
             child = new PIXI.Container();
-            createContainer(child, depth - 1);
+            for (let i = 0; i < Math.random() * 2; i++) {
+                createContainer(child, depth - 1);
+            }
         }
-        child.x = Math.random() * 150;
-        child.y = Math.random() * 150;
+        child.x = Math.random() * 200 + 50;
+        child.y = Math.random() * 200 + 50;
         child.visible = Math.random() > 0.3;
+        child.rotation = Math.random() * 2 * Math.PI;
         parent.addChild(child);
     };
 
     for (let i = 0; i < 20; i++) {
         createContainer(app.stage, Math.floor(Math.random() * 4));
     }
-
 </script>
 </body>
 </html>
