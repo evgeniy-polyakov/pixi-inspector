@@ -44,6 +44,6 @@ The third argument of `PixiInspector` constructor is the style of the context me
 
 The context menu can be disabled and enabled by using the `enabled:boolean` inspector property.
 
-## Live Example
+## Live Demo
 
 [Open](https://evgeniy-polyakov.github.io/pixi-inspector/example/index.html)
