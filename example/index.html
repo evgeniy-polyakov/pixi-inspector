@@ -18,19 +18,26 @@
 
     const texture = PIXI.Texture.from('assets/bunny.png');
 
-    const createContainer = (parent, depth) => {
-        let sprite;
-        if (depth === 0) {
-            sprite = new PIXI.Sprite(texture);
-            sprite.scale.set(Math.random() * 4 + 1);
-        } else {
-            sprite = new PIXI.Container();
-            createContainer(sprite, depth - 1);
+    class Bunny extends PIXI.Container {
+        constructor() {
+            super();
+            this.addChild(new PIXI.Sprite(texture));
         }
-        sprite.x = Math.random() * 150;
-        sprite.y = Math.random() * 150;
-        sprite.visible = Math.random() > 0.3;
-        parent.addChild(sprite);
+    }
+
+    const createContainer = (parent, depth) => {
+        let child;
+        if (depth === 0) {
+            child = new Bunny();
+            child.scale.set(Math.random() * 4 + 1);
+        } else {
+            child = new PIXI.Container();
+            createContainer(child, depth - 1);
+        }
+        child.x = Math.random() * 150;
+        child.y = Math.random() * 150;
+        child.visible = Math.random() > 0.3;
+        parent.addChild(child);
     };
 
     for (let i = 0; i < 20; i++) {
