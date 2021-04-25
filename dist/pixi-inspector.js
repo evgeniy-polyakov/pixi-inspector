@@ -163,12 +163,12 @@ var PixiInspector = /** @class */ (function () {
         };
         this.showContextMenu = function (event) {
             if (event.target === _this._renderer.view) {
-                event.preventDefault();
-                event.stopPropagation();
-                event.stopImmediatePropagation();
                 var point = _this.getStagePoint(event);
                 var data = _this.getContextMenuData(point, _this._root);
                 if (data) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    event.stopImmediatePropagation();
                     if (_this._contextMenu) {
                         _this._contextMenu.destroy();
                     }

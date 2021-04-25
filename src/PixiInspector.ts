@@ -60,14 +60,12 @@ export class PixiInspector {
 
     private showContextMenu = (event: MouseEvent) => {
         if (event.target === this._renderer.view) {
-            event.preventDefault();
-            event.stopPropagation();
-            event.stopImmediatePropagation();
-
             const point = this.getStagePoint(event);
             const data = this.getContextMenuData(point, this._root);
-
             if (data) {
+                event.preventDefault();
+                event.stopPropagation();
+                event.stopImmediatePropagation();
                 if (this._contextMenu) {
                     this._contextMenu.destroy();
                 }
