@@ -19,7 +19,7 @@ const inspector = new PixiInspector(app.stage, app.renderer);
 
 Right-click on the canvas displays context menu with display object tree under the mouse pointer.
 
-![](example/menu.png)
+![](img/menu.png)
 
 * The context menu does not show the whole display tree, only sprites and meshes under the mouse pointer and their ascendants.
 * If no display objects are found under the mouse pointer, the default browser context menu is displayed.
@@ -34,7 +34,7 @@ Right-click on the canvas displays context menu with display object tree under t
 Clicking on the menu item will log the corresponding object in the console. It also sets a breakpoint in an anonymous function called on that object. The object itself can be accessed in the debugger
 as `this` in local scope. Properties of the object can be viewed and changed directly in the debugger or coding in the console.
 
-![](example/debugger.png)
+![](img/debugger.png)
 
 > Note: The debugger must be opened in advance. There is no way to open the debugger programmatically.
 

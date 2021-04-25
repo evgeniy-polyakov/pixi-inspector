@@ -7,7 +7,7 @@
 </head>
 <body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.9/pixi.js"></script>
-<script src="../dist/pixi-inspector.js"></script>
+<script src="dist/pixi-inspector.js"></script>
 <script>
     const app = new PIXI.Application({
         width: 800, height: 600, backgroundColor: 0x1099bb, resolution: window.devicePixelRatio || 1,
@@ -16,7 +16,7 @@
 
     document.body.appendChild(app.view);
 
-    const texture = PIXI.Texture.from('assets/bunny.png');
+    const texture = PIXI.Texture.from('img/bunny.png');
 
     class Bunny extends PIXI.Container {
         constructor() {
