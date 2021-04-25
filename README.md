@@ -40,3 +40,5 @@ as `this` in local scope. Properties of the object can be viewed and changed dir
 ## Configuration
 
 The third argument of `PixiInspector` constructor is the style of the context menu: `light` or `dark`. If no style is specified, it is detected from the browser theme.
+
+The context menu can be disabled and enabled by using the `enabled:boolean` inspector property.
