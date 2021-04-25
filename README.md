@@ -43,3 +43,8 @@ as `this` in local scope. Properties of the object can be viewed and changed dir
 The third argument of `PixiInspector` constructor is the style of the context menu: `light` or `dark`. If no style is specified, it is detected from the browser theme.
 
 The context menu can be disabled and enabled by using the `enabled:boolean` inspector property.
+
+## Live Example
+
+<iframe src="https://evgeniy-polyakov.github.io/pixi-inspector/example/index.html" width="800" height="600" frameborder="0"/>
+<a href="https://evgeniy-polyakov.github.io/pixi-inspector/example/index.html" target="_blank">Open in new window</a>
