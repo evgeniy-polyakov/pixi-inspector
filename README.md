@@ -46,5 +46,4 @@ The context menu can be disabled and enabled by using the `enabled:boolean` insp
 
 ## Live Example
 
-<iframe src="https://evgeniy-polyakov.github.io/pixi-inspector/example/index.html" width="800" height="600" frameborder="0"/>
-<a href="https://evgeniy-polyakov.github.io/pixi-inspector/example/index.html" target="_blank">Open in new window</a>
+[Open](https://evgeniy-polyakov.github.io/pixi-inspector/example/index.html)
