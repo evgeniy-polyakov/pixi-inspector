@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pixi Inspector Example</title>
+</head>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.9/pixi.js"></script>
+<script src="../dist/pixi-inspector.js"></script>
+<script>
+    const app = new PIXI.Application({
+        width: 800, height: 600, backgroundColor: 0x1099bb, resolution: window.devicePixelRatio || 1,
+    });
+    new window['pixi-inspector'].PixiInspector(app.stage, app.renderer);
+
+    document.body.appendChild(app.view);
+
+    const texture = PIXI.Texture.from('assets/bunny.png');
+
+    const createContainer = (parent, depth) => {
+        let sprite;
+        if (depth === 0) {
+            sprite = new PIXI.Sprite(texture);
+            sprite.scale.set(Math.random() * 4 + 1);
+        } else {
+            sprite = new PIXI.Container();
+            createContainer(sprite, depth - 1);
+        }
+        sprite.x = Math.random() * 150;
+        sprite.y = Math.random() * 150;
+        sprite.visible = Math.random() > 0.3;
+        parent.addChild(sprite);
+    };
+
+    for (let i = 0; i < 20; i++) {
+        createContainer(app.stage, Math.floor(Math.random() * 4));
+    }
+
+</script>
+</body>
+</html>
