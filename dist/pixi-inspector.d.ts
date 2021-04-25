@@ -1,3 +1,4 @@
+import * as PIXI from "pixi.js";
 export declare class PixiInspector {
     private readonly _root;
     private readonly _renderer;
