@@ -23,6 +23,7 @@ Right-click on the canvas displays context menu with display object tree under t
 
 * The context menu does not show the whole display tree, only sprites and meshes under the mouse pointer and their ascendants.
 * If no display objects are found under the mouse pointer, the default browser context menu is displayed.
+* Menu items for objects on the same level in the tree are sorted by z-index ascending.
 * Invisible display objects are greyed out. Objects with `worldVisible == false || worldAplha == 0` are considered invisible.
 * Custom classes have the proper name in the menu like `Bunny` in the example. The class name is taken from `constructor.name`.
   > Note: Using the inspector with minified code will result in short uglified object names.
