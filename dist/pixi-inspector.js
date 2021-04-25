@@ -150,10 +150,7 @@ var PixiInspector = /** @class */ (function () {
         this._enabled = false;
         this.disablePixiRightClick = function (event) {
             if (event.target === _this._renderer.view) {
-                if (_this._contextMenu) {
-                    _this._contextMenu.destroy();
-                    _this._contextMenu = undefined;
-                }
+                _this.hideContextMenu();
                 if ((event instanceof PointerEvent ? event.pointerType === "mouse" : true) && event.button === 2) {
                     event.preventDefault();
                     event.stopPropagation();
@@ -168,9 +165,7 @@ var PixiInspector = /** @class */ (function () {
                     event.preventDefault();
                     event.stopPropagation();
                     event.stopImmediatePropagation();
-                    if (_this._contextMenu) {
-                        _this._contextMenu.destroy();
-                    }
+                    _this.hideContextMenu();
                     _this._contextMenu = new ContextMenu(event, _this._renderer, data, _this._style);
                 }
             }
@@ -196,6 +191,7 @@ var PixiInspector = /** @class */ (function () {
                     document.addEventListener("contextmenu", this.showContextMenu, true);
                 }
                 else {
+                    this.hideContextMenu();
                     document.head.removeChild(this._styleSheet);
                     document.removeEventListener("pointerdown", this.disablePixiRightClick, true);
                     document.removeEventListener("mousedown", this.disablePixiRightClick, true);
@@ -206,6 +202,12 @@ var PixiInspector = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    PixiInspector.prototype.hideContextMenu = function () {
+        if (this._contextMenu) {
+            this._contextMenu.destroy();
+            this._contextMenu = undefined;
+        }
+    };
     PixiInspector.prototype.getStagePoint = function (event) {
         var point = { x: 0, y: 0 };
         this._interaction.mapPositionToPoint(point, event.clientX, event.clientY);

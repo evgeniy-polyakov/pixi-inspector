@@ -13,6 +13,7 @@ export declare class PixiInspector {
     set enabled(value: boolean);
     private disablePixiRightClick;
     private showContextMenu;
+    private hideContextMenu;
     private getStagePoint;
     private flattenDescendants;
     private getContextMenuData;

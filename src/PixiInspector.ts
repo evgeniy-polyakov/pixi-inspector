@@ -37,6 +37,7 @@ export class PixiInspector {
                 document.addEventListener("mousedown", this.disablePixiRightClick, true);
                 document.addEventListener("contextmenu", this.showContextMenu, true);
             } else {
+                this.hideContextMenu();
                 document.head.removeChild(this._styleSheet);
                 document.removeEventListener("pointerdown", this.disablePixiRightClick, true);
                 document.removeEventListener("mousedown", this.disablePixiRightClick, true);
@@ -47,10 +48,7 @@ export class PixiInspector {
 
     private disablePixiRightClick = (event: PointerEvent | MouseEvent) => {
         if (event.target === this._renderer.view) {
-            if (this._contextMenu) {
-                this._contextMenu.destroy();
-                this._contextMenu = undefined;
-            }
+            this.hideContextMenu();
             if ((event instanceof PointerEvent ? event.pointerType === "mouse" : true) && event.button === 2) {
                 event.preventDefault();
                 event.stopPropagation();
@@ -66,11 +64,16 @@ export class PixiInspector {
                 event.preventDefault();
                 event.stopPropagation();
                 event.stopImmediatePropagation();
-                if (this._contextMenu) {
-                    this._contextMenu.destroy();
-                }
+                this.hideContextMenu();
                 this._contextMenu = new ContextMenu(event, this._renderer, data, this._style);
             }
+        }
+    }
+
+    private hideContextMenu() {
+        if (this._contextMenu) {
+            this._contextMenu.destroy();
+            this._contextMenu = undefined;
         }
     }
 

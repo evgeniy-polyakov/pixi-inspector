@@ -12,7 +12,7 @@
     const app = new PIXI.Application({
         width: 800, height: 600, backgroundColor: 0x1099bb, resolution: window.devicePixelRatio || 1,
     });
-    new window['pixi-inspector'].PixiInspector(app.stage, app.renderer);
+    const inspector = new window['pixi-inspector'].PixiInspector(app.stage, app.renderer);
 
     document.body.appendChild(app.view);
 
