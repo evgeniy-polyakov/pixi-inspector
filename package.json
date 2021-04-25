@@ -1,6 +1,6 @@
 {
     "name": "pixi-inspector",
-    "description": "Browsing and changing attributes of PixiJS display objects in DOM inspector.",
+    "description": "Browsing PixiJS display objects in context menu.",
     "version": "2.0.0",
     "license": "MIT",
     "repository": {
@@ -11,7 +11,8 @@
         "pixi",
         "pixijs",
         "inspector",
-        "dom"
+        "context",
+        "menu"
     ],
     "files": [
         "dist/",
