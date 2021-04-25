@@ -6,7 +6,10 @@ export default {
         name: 'pixi-inspector',
         file: 'dist/pixi-inspector.js',
         format: 'umd',
-        compact: true
+        compact: true,
+        globals: {
+            'pixi.js': 'PIXI'
+        }
     },
     plugins: [typescript()],
     external: ['pixi.js']
