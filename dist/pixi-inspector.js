@@ -1,4 +1,4 @@
-(function(g,f){typeof exports==='object'&&typeof module!=='undefined'?f(exports,require('pixi.js')):typeof define==='function'&&define.amd?define(['exports','pixi.js'],f):(g=typeof globalThis!=='undefined'?globalThis:g||self,f(g['pixi-inspector']={},g.PIXI));}(this,(function(exports, PIXI){'use strict';function _interopNamespace(e){if(e&&e.__esModule)return e;var n=Object.create(null);if(e){Object.keys(e).forEach(function(k){if(k!=='default'){var d=Object.getOwnPropertyDescriptor(e,k);Object.defineProperty(n,k,d.get?d:{enumerable:true,get:function(){return e[k];}});}});}n['default']=e;return Object.freeze(n);}var PIXI__namespace=/*#__PURE__*/_interopNamespace(PIXI);var ContextMenu = /** @class */ (function () {
+(function(g,f){typeof exports==='object'&&typeof module!=='undefined'?f(exports,require('pixi.js')):typeof define==='function'&&define.amd?define(['exports','pixi.js'],f):(g=typeof globalThis!=='undefined'?globalThis:g||self,f(g["pixi-inspector"]={},g.PIXI));})(this,(function(exports,PIXI){'use strict';function _interopNamespace(e){if(e&&e.__esModule)return e;var n=Object.create(null);if(e){Object.keys(e).forEach(function(k){if(k!=='default'){var d=Object.getOwnPropertyDescriptor(e,k);Object.defineProperty(n,k,d.get?d:{enumerable:true,get:function(){return e[k]}});}})}n["default"]=e;return Object.freeze(n)}var PIXI__namespace=/*#__PURE__*/_interopNamespace(PIXI);var ContextMenu = /** @class */ (function () {
     function ContextMenu(event, renderer, data, style) {
         var _this = this;
         this._inspect = new Function("console.dir(this); debugger;");
@@ -9,12 +9,12 @@
         var ul = document.createElement("ul");
         ul.innerHTML = this.dataToHtml(data, "0", 0);
         ul.style.margin = "0";
-        ul.className = "pixi-inspector-context-menu pixi-inspector-context-menu-" + style;
+        ul.className = "pixi-inspector-context-menu pixi-inspector-context-menu-".concat(style);
         div.append(ul);
         var x = Math.max(0, Math.min(window.innerWidth - ul.clientWidth, event.clientX));
         var y = Math.max(0, Math.min(window.innerHeight - ul.clientHeight, event.clientY));
-        div.style.top = y + "px";
-        div.style.left = x + "px";
+        div.style.top = "".concat(y, "px");
+        div.style.left = "".concat(x, "px");
         ul.querySelectorAll("li").forEach(function (li) {
             var _a;
             (_a = li.querySelector("label")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", function (event) {
@@ -42,19 +42,19 @@
         var startPadding = 0.8;
         var levelPadding = 1.4;
         var branchPadding = 0.5;
-        return "<li data-id=\"" + id + "\" data-visible=\"" + (data.target.worldVisible && data.target.worldAlpha > 0) + "\">\n<label style=\"padding-left:" + (levelPadding * level + startPadding) + "em\">" + this.getItemName(data, id) + "</label>\n<ul>" + data.children.map(function (it, i) { return _this.dataToHtml(it, id + "-" + i, level + 1); }).join("") + "</ul>\n<div style=\"left:" + (levelPadding * level + branchPadding - startPadding) + "em\" class=\"branch\"></div>\n</li>";
+        return "<li data-id=\"".concat(id, "\" data-visible=\"").concat(data.target.worldVisible && data.target.worldAlpha > 0, "\">\n<label style=\"padding-left:").concat(levelPadding * level + startPadding, "em\">").concat(this.getItemName(data, id), "</label>\n<ul>").concat(data.children.map(function (it, i) { return _this.dataToHtml(it, "".concat(id, "-").concat(i), level + 1); }).join(""), "</ul>\n<div style=\"left:").concat(levelPadding * level + branchPadding - startPadding, "em\" class=\"branch\"></div>\n</li>");
     };
     ContextMenu.prototype.getItemName = function (data, id) {
-        var name = "<span>" + this.getClassName(data.target) + "</span>";
+        var name = "<span>".concat(this.getClassName(data.target), "</span>");
         var texture = data.target.texture;
         if (texture instanceof PIXI__namespace.Texture) {
             data.texture = texture;
-            name += "<span>:&nbsp;</span><span data-texture=\"" + id + "\">" + (texture === PIXI__namespace.Texture.EMPTY ? "<u>empty</u>" :
+            name += "<span>:&nbsp;</span><span data-texture=\"".concat(id, "\">").concat(texture === PIXI__namespace.Texture.EMPTY ? "<u>empty</u>" :
                 texture === PIXI__namespace.Texture.WHITE ? "<u>white</u>" :
                     texture instanceof PIXI__namespace.RenderTexture ? "<u>rendered</u>" :
                         texture.textureCacheIds && texture.textureCacheIds.length > 0 ?
-                            texture.textureCacheIds.slice(0, 2).map(function (it) { return "<u>" + it + "</u>"; }).join(",&nbsp") :
-                            "<u>unnamed</u>") + "</span>";
+                            texture.textureCacheIds.slice(0, 2).map(function (it) { return "<u>".concat(it, "</u>"); }).join(",&nbsp") :
+                            "<u>unnamed</u>", "</span>");
         }
         return name;
     };
@@ -113,16 +113,16 @@
                 var rootRect = this._root.getBoundingClientRect();
                 var itemRect = span.parentElement.getBoundingClientRect();
                 this._root.append(canvas);
-                canvas.className = "pixi-inspector-texture-popup pixi-inspector-texture-popup-" + this._style;
+                canvas.className = "pixi-inspector-texture-popup pixi-inspector-texture-popup-".concat(this._style);
                 canvas.style.position = "absolute";
                 if (data.texture.width > data.texture.height) {
-                    canvas.style.maxWidth = vw + "vw";
+                    canvas.style.maxWidth = "".concat(vw, "vw");
                 }
                 else {
-                    canvas.style.maxHeight = vw + "vw";
+                    canvas.style.maxHeight = "".concat(vw, "vw");
                 }
                 var top_1 = Math.max(-rootRect.top, Math.min(itemRect.top - rootRect.top, window.innerHeight - canvas.clientHeight - rootRect.top));
-                canvas.style.top = top_1 + "px";
+                canvas.style.top = "".concat(top_1, "px");
                 var isLeft = rootRect.right + canvas.clientWidth > window.innerWidth;
                 if (isLeft) {
                     canvas.style.right = "100%";
@@ -142,7 +142,7 @@
     };
     return ContextMenu;
 }());// language=CSS
-var StyleSheet = "\n    .pixi-inspector-context-menu,\n    .pixi-inspector-context-menu ul {\n        list-style: none;\n        margin: 0;\n        padding: 0;\n    }\n\n    .pixi-inspector-texture-popup,\n    .pixi-inspector-context-menu {\n        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\n        font-size: 12px;\n        color: #202124;\n        background: #fff;\n        border: 1px solid #dadce0;\n        box-shadow: 4px 4px 3px -1px rgba(0, 0, 0, 0.5);\n        line-height: 1.2;\n        max-height: 100vh;\n        max-width: 100vw;\n        overflow: auto;\n    }\n\n    .pixi-inspector-context-menu > li:first-child {\n        padding-top: 0.25em;\n    }\n\n    .pixi-inspector-context-menu > li:last-child {\n        padding-bottom: 0.25em;\n    }\n\n    .pixi-inspector-context-menu ul li {\n        padding: 0;\n        position: relative;\n    }\n\n    .pixi-inspector-context-menu li label {\n        display: block;\n        padding: 0 1.4em;\n        white-space: nowrap;\n        cursor: pointer;\n    }\n\n    .pixi-inspector-context-menu li label span {\n        padding: 0.3em 0;\n        display: inline-block;\n    }\n\n    .pixi-inspector-context-menu li label:hover {\n        background: #c8c8c9;\n    }\n\n    .pixi-inspector-context-menu ul > li > .branch {\n        position: absolute;\n        top: 0;\n        left: 0;\n        height: 100%;\n        width: 0.8em;\n        border-left: #72777c 1px dotted;\n        pointer-events: none;\n    }\n\n    .pixi-inspector-context-menu ul > li > .branch:before {\n        content: '';\n        position: absolute;\n        top: 0.9em;\n        left: 0;\n        width: 100%;\n        border-top: #72777c 1px dotted;\n    }\n\n    .pixi-inspector-context-menu ul > li:last-child > .branch {\n        height: 0.8em;\n    }\n\n    .pixi-inspector-context-menu li[data-visible=false] {\n        color: #72777c;\n    }\n\n    .pixi-inspector-context-menu span[data-texture] u {\n        text-decoration: underline;\n    }\n\n    .pixi-inspector-texture-popup {\n        min-width: 72px;\n        object-fit: contain;\n        object-position: center;\n        pointer-events: none;\n        background-image: url(\"data:image/svg+xml;utf8," + encodeURIComponent('<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><rect height="12" width="12" y="0" x="12" fill="#dadce0"/><rect height="12" width="12" y="12" x="0" fill="#dadce0"/></svg>') + "\");\n    }\n\n    .pixi-inspector-texture-popup-dark {\n        background-image: url(\"data:image/svg+xml;utf8," + encodeURIComponent('<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><rect height="12" width="12" y="0" x="12" fill="#3c4043"/><rect height="12" width="12" y="12" x="0" fill="#3c4043"/></svg>') + "\");\n    }\n\n    .pixi-inspector-context-menu-dark,\n    .pixi-inspector-texture-popup-dark {\n        color: #e8eaed;\n        background-color: #292a2d;\n        border-color: #3c4043;\n    }\n\n    .pixi-inspector-context-menu-dark li label:hover {\n        background-color: #4b4c4f;\n    }\n\n    .pixi-inspector-context-menu-dark ul > li > .branch,\n    .pixi-inspector-context-menu-dark ul > li > .branch:before {\n        border-color: #8b9196;\n    }\n\n    .pixi-inspector-context-menu-dark li[data-visible=false] {\n        color: #8b9196;\n    }\n";
+var StyleSheet = "\n    .pixi-inspector-context-menu,\n    .pixi-inspector-context-menu ul {\n        list-style: none;\n        margin: 0;\n        padding: 0;\n    }\n\n    .pixi-inspector-texture-popup,\n    .pixi-inspector-context-menu {\n        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\n        font-size: 12px;\n        color: #202124;\n        background: #fff;\n        border: 1px solid #dadce0;\n        box-shadow: 4px 4px 3px -1px rgba(0, 0, 0, 0.5);\n        line-height: 1.2;\n        max-height: 100vh;\n        max-width: 100vw;\n        overflow: auto;\n    }\n\n    .pixi-inspector-context-menu > li:first-child {\n        padding-top: 0.25em;\n    }\n\n    .pixi-inspector-context-menu > li:last-child {\n        padding-bottom: 0.25em;\n    }\n\n    .pixi-inspector-context-menu ul li {\n        padding: 0;\n        position: relative;\n    }\n\n    .pixi-inspector-context-menu li label {\n        display: block;\n        padding: 0 1.4em;\n        white-space: nowrap;\n        cursor: pointer;\n    }\n\n    .pixi-inspector-context-menu li label span {\n        padding: 0.3em 0;\n        display: inline-block;\n    }\n\n    .pixi-inspector-context-menu li label:hover {\n        background: #c8c8c9;\n    }\n\n    .pixi-inspector-context-menu ul > li > .branch {\n        position: absolute;\n        top: 0;\n        left: 0;\n        height: 100%;\n        width: 0.8em;\n        border-left: #72777c 1px dotted;\n        pointer-events: none;\n    }\n\n    .pixi-inspector-context-menu ul > li > .branch:before {\n        content: '';\n        position: absolute;\n        top: 0.9em;\n        left: 0;\n        width: 100%;\n        border-top: #72777c 1px dotted;\n    }\n\n    .pixi-inspector-context-menu ul > li:last-child > .branch {\n        height: 0.8em;\n    }\n\n    .pixi-inspector-context-menu li[data-visible=false] {\n        color: #72777c;\n    }\n\n    .pixi-inspector-context-menu span[data-texture] u {\n        text-decoration: underline;\n    }\n\n    .pixi-inspector-texture-popup {\n        min-width: 72px;\n        object-fit: contain;\n        object-position: center;\n        pointer-events: none;\n        background-image: url(\"data:image/svg+xml;utf8,".concat(encodeURIComponent('<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><rect height="12" width="12" y="0" x="12" fill="#dadce0"/><rect height="12" width="12" y="12" x="0" fill="#dadce0"/></svg>'), "\");\n    }\n\n    .pixi-inspector-texture-popup-dark {\n        background-image: url(\"data:image/svg+xml;utf8,").concat(encodeURIComponent('<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><rect height="12" width="12" y="0" x="12" fill="#3c4043"/><rect height="12" width="12" y="12" x="0" fill="#3c4043"/></svg>'), "\");\n    }\n\n    .pixi-inspector-context-menu-dark,\n    .pixi-inspector-texture-popup-dark {\n        color: #e8eaed;\n        background-color: #292a2d;\n        border-color: #3c4043;\n    }\n\n    .pixi-inspector-context-menu-dark li label:hover {\n        background-color: #4b4c4f;\n    }\n\n    .pixi-inspector-context-menu-dark ul > li > .branch,\n    .pixi-inspector-context-menu-dark ul > li > .branch:before {\n        border-color: #8b9196;\n    }\n\n    .pixi-inspector-context-menu-dark li[data-visible=false] {\n        color: #8b9196;\n    }\n");
 var PixiInspector = /** @class */ (function () {
     function PixiInspector(root, renderer, style) {
         var _this = this;
@@ -273,4 +273,4 @@ var PixiInspector = /** @class */ (function () {
         return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
     };
     return PixiInspector;
-}());exports.PixiInspector=PixiInspector;Object.defineProperty(exports,'__esModule',{value:true});})));
+}());exports.PixiInspector=PixiInspector;Object.defineProperty(exports,'__esModule',{value:true});}));
