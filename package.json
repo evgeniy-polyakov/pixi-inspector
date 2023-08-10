@@ -1,8 +1,9 @@
 {
     "name": "pixi-inspector",
     "description": "Browsing PixiJS display objects in context menu.",
-    "version": "2.0.1",
+    "version": "3.0.0",
     "license": "MIT",
+    "type": "module",
     "repository": {
         "type": "git",
         "url": "https://github.com/evgeniy-polyakov/pixi-inspector.git"
@@ -23,18 +24,18 @@
     "main": "./dist/pixi-inspector.js",
     "types": "./dist/pixi-inspector.d.ts",
     "peerDependencies": {
-        "pixi.js": "^5.0.0"
+        "pixi.js": "^7.2.4"
     },
     "devDependencies": {
-        "pixi.js": "^5.0.0",
+        "pixi.js": "^7.2.4",
         "rimraf": "latest",
-        "typescript": "^4.5.4",
-        "tslib": "^2.3.1",
-        "rollup": "^2.62.0",
-        "@rollup/plugin-typescript": "^8.3.0",
-        "@typescript-eslint/eslint-plugin": "^5.8.1",
-        "@typescript-eslint/parser": "^5.8.1",
-        "eslint": "^8.5.0"
+        "typescript": "^4.9.5",
+        "tslib": "^2.6.1",
+        "rollup": "^3.28.0",
+        "@rollup/plugin-typescript": "^11.1.2",
+        "@typescript-eslint/eslint-plugin": "^6.3.0",
+        "@typescript-eslint/parser": "^6.3.0",
+        "eslint": "^8.46.0"
     },
     "scripts": {
         "lint": "eslint src --ext .ts",

@@ -10,12 +10,12 @@ export class ContextMenu {
 
     private readonly _data: IContextMenuData;
     private readonly _root: HTMLElement;
-    private readonly _renderer: PIXI.AbstractRenderer;
+    private readonly _renderer: PIXI.Renderer;
     private readonly _style: string;
     private readonly _inspect = new Function("console.dir(this); debugger;");
     private _textureImage?: HTMLElement;
 
-    constructor(event: MouseEvent, renderer: PIXI.AbstractRenderer, data: IContextMenuData, style: string) {
+    constructor(event: MouseEvent, renderer: PIXI.Renderer, data: IContextMenuData, style: string) {
 
         const div = document.createElement("div");
         div.style.position = "fixed";
@@ -129,7 +129,7 @@ export class ContextMenu {
         }
         const data = this.getData(this._data, ids);
         if (data?.texture) {
-            const renderer = this._renderer as PIXI.Renderer;
+            const renderer = this._renderer;
             if (renderer && renderer.extract && typeof renderer.extract.image === "function") {
 
                 const vw = 12;
@@ -140,7 +140,7 @@ export class ContextMenu {
                 const container = new PIXI.Container();
                 container.addChild(sprite);
 
-                const canvas = renderer.extract.canvas(container);
+                const canvas = renderer.extract.canvas(container) as HTMLCanvasElement;
                 const rootRect = this._root.getBoundingClientRect();
                 const itemRect = span.parentElement!.getBoundingClientRect();
                 this._root.append(canvas);

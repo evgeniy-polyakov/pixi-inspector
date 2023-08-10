@@ -5,8 +5,8 @@ import {StyleSheet} from "./StyleSheet";
 export class PixiInspector {
 
     private readonly _root: PIXI.Container;
-    private readonly _renderer: PIXI.AbstractRenderer;
-    private readonly _interaction: PIXI.InteractionManager;
+    private readonly _renderer: PIXI.Renderer;
+    private readonly _interaction: PIXI.EventSystem;
     private readonly _tempRect = new PIXI.Rectangle();
     private readonly _styleSheet: HTMLStyleElement;
     private readonly _style: string;
@@ -14,11 +14,11 @@ export class PixiInspector {
     private _contextMenu?: ContextMenu;
 
     constructor(root: PIXI.Container,
-                renderer: PIXI.AbstractRenderer,
+                renderer: PIXI.Renderer,
                 style?: "dark" | "light") {
         this._root = root;
         this._renderer = renderer;
-        this._interaction = this._renderer.plugins.interaction;
+        this._interaction = this._renderer.events;
         this._styleSheet = this.createStyleSheet();
         this._style = style || this.detectStyle();
         this.enabled = true;

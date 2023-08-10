@@ -3,15 +3,16 @@
         "strict": true,
         "module": "ESNext",
         "outDir": "dist",
-        "target": "es5",
+        "target": "ES2015",
         "rootDir": "src",
         "moduleResolution": "Node",
         "declaration": true,
         "emitDeclarationOnly": true,
         "lib": [
-            "es5",
+            "ES2015",
             "dom"
-        ]
+        ],
+        "allowSyntheticDefaultImports": true
     },
     "include": [
         "src/**/*.ts"
