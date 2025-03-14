@@ -19,11 +19,22 @@
         document.body.appendChild(app.canvas);
 
         const texture = await PIXI.Assets.load("bunny.png");
+        texture.label = "bunny.png";
 
         class Bunny extends PIXI.Container {
             constructor() {
                 super();
-                this.addChild(new PIXI.Sprite(texture)).anchor.set(0.5);
+                if (Math.random() > 0.5) {
+                    this.addChild(new PIXI.Sprite(texture)).anchor.set(0.5);
+                } else {
+                    this.addChild(new PIXI.PerspectiveMesh({
+                        texture,
+                        x0: -10, y0: -20,
+                        x1: 10, y1: -20,
+                        x2: 20, y2: 20,
+                        x3: -20, y3: 20,
+                    }))
+                }
             }
         }
 
