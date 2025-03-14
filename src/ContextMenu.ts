@@ -85,12 +85,12 @@ export class ContextMenu {
         }).texture;
         if (texture?.isTexture) {
             data.texture = texture;
-            name += `<span>:&nbsp;</span><span data-texture="${id}">${
-                texture === PIXI.Texture.EMPTY ? "<u>Texture.EMPTY</u>" :
-                    texture === PIXI.Texture.WHITE ? "<u>Texture.WHITE</u>" :
-                        texture instanceof PIXI.RenderTexture ? "<u>RenderTexture</u>" :
+            name += `<span>:&nbsp;</span><span data-texture="${id}"><u>${
+                texture === PIXI.Texture.EMPTY ? "Texture.EMPTY" :
+                    texture === PIXI.Texture.WHITE ? "Texture.WHITE" :
+                        texture instanceof PIXI.RenderTexture ? "RenderTexture" :
                             texture.label ? texture.label : texture.uid
-            }</span>`
+            }</u></span>`
         }
         return name;
     }

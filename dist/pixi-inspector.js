@@ -60,10 +60,10 @@
         const texture = data.target.texture;
         if (texture === null || texture === void 0 ? void 0 : texture.isTexture) {
             data.texture = texture;
-            name += `<span>:&nbsp;</span><span data-texture="${id}">${texture === PIXI__namespace.Texture.EMPTY ? "<u>Texture.EMPTY</u>" :
-                texture === PIXI__namespace.Texture.WHITE ? "<u>Texture.WHITE</u>" :
-                    texture instanceof PIXI__namespace.RenderTexture ? "<u>RenderTexture</u>" :
-                        texture.label ? texture.label : texture.uid}</span>`;
+            name += `<span>:&nbsp;</span><span data-texture="${id}"><u>${texture === PIXI__namespace.Texture.EMPTY ? "Texture.EMPTY" :
+                texture === PIXI__namespace.Texture.WHITE ? "Texture.WHITE" :
+                    texture instanceof PIXI__namespace.RenderTexture ? "RenderTexture" :
+                        texture.label ? texture.label : texture.uid}</u></span>`;
         }
         return name;
     }
