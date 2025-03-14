@@ -40,23 +40,30 @@
         const startPadding = 0.8;
         const levelPadding = 1.4;
         const branchPadding = 0.5;
-        return `<li data-id="${id}" data-visible="${data.target.worldVisible && data.target.worldAlpha > 0}">
+        return `<li data-id="${id}" data-visible="${this.getVisible(data.target)}">
 <label style="padding-left:${levelPadding * level + startPadding}em">${this.getItemName(data, id)}</label>
 <ul>${data.children.map((it, i) => this.dataToHtml(it, `${id}-${i}`, level + 1)).join("")}</ul>
 <div style="left:${levelPadding * level + branchPadding - startPadding}em" class="branch"></div>
 </li>`;
     }
+    getVisible(target) {
+        if (!target.visible || target.alpha === 0) {
+            return false;
+        }
+        if (target.parent) {
+            return this.getVisible(target.parent);
+        }
+        return true;
+    }
     getItemName(data, id) {
         let name = `<span>${this.getClassName(data.target)}</span>`;
         const texture = data.target.texture;
-        if (texture instanceof PIXI__namespace.Texture) {
+        if (texture === null || texture === void 0 ? void 0 : texture.isTexture) {
             data.texture = texture;
-            name += `<span>:&nbsp;</span><span data-texture="${id}">${texture === PIXI__namespace.Texture.EMPTY ? "<u>empty</u>" :
-                texture === PIXI__namespace.Texture.WHITE ? "<u>white</u>" :
-                    texture instanceof PIXI__namespace.RenderTexture ? "<u>rendered</u>" :
-                        texture.textureCacheIds && texture.textureCacheIds.length > 0 ?
-                            texture.textureCacheIds.slice(0, 2).map(it => `<u>${it}</u>`).join(",&nbsp") :
-                            "<u>unnamed</u>"}</span>`;
+            name += `<span>:&nbsp;</span><span data-texture="${id}">${texture === PIXI__namespace.Texture.EMPTY ? "<u>Texture.EMPTY</u>" :
+                texture === PIXI__namespace.Texture.WHITE ? "<u>Texture.WHITE</u>" :
+                    texture instanceof PIXI__namespace.RenderTexture ? "<u>RenderTexture</u>" :
+                        texture.label ? texture.label : texture.uid}</span>`;
         }
         return name;
     }
@@ -258,10 +265,10 @@ const StyleSheet = `
     }
 `;class PixiInspector {
     constructor(root, renderer, style) {
-        this._tempRect = new PIXI__namespace.Rectangle();
+        this._tempRect = new PIXI__namespace.Bounds();
         this._enabled = false;
         this.disablePixiRightClick = (event) => {
-            if (event.target === this._renderer.view) {
+            if (event.target === this._renderer.canvas) {
                 this.hideContextMenu();
                 if ((event instanceof PointerEvent ? event.pointerType === "mouse" : true) && event.button === 2) {
                     event.preventDefault();
@@ -270,7 +277,7 @@ const StyleSheet = `
             }
         };
         this.showContextMenu = (event) => {
-            if (event.target === this._renderer.view) {
+            if (event.target === this._renderer.canvas) {
                 const point = this.getStagePoint(event);
                 const data = this.getContextMenuData(point, this._root);
                 if (data) {

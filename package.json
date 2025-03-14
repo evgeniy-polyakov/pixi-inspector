@@ -24,18 +24,18 @@
     "main": "./dist/pixi-inspector.js",
     "types": "./dist/pixi-inspector.d.ts",
     "peerDependencies": {
-        "pixi.js": "^7.2.4"
+        "pixi.js": "^8.8.1"
     },
     "devDependencies": {
-        "pixi.js": "^7.2.4",
+        "pixi.js": "^8.8.1",
         "rimraf": "latest",
-        "typescript": "^4.9.5",
-        "tslib": "^2.6.1",
-        "rollup": "^3.28.0",
-        "@rollup/plugin-typescript": "^11.1.2",
-        "@typescript-eslint/eslint-plugin": "^6.3.0",
-        "@typescript-eslint/parser": "^6.3.0",
-        "eslint": "^8.46.0"
+        "typescript": "^5.8.2",
+        "tslib": "^2.8.1",
+        "rollup": "^4.35.0",
+        "@rollup/plugin-typescript": "^12.1.2",
+        "@typescript-eslint/eslint-plugin": "^8.26.1",
+        "@typescript-eslint/parser": "^8.26.1",
+        "eslint": "^8.57.1"
     },
     "scripts": {
         "lint": "eslint src --ext .ts",

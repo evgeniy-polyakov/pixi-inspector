@@ -9,10 +9,11 @@
         "declaration": true,
         "emitDeclarationOnly": true,
         "lib": [
-            "ES2015",
+            "ES2020",
             "dom"
         ],
-        "allowSyntheticDefaultImports": true
+        "allowSyntheticDefaultImports": true,
+        "skipLibCheck": true
     },
     "include": [
         "src/**/*.ts"

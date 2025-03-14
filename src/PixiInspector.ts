@@ -7,7 +7,7 @@ export class PixiInspector {
     private readonly _root: PIXI.Container;
     private readonly _renderer: PIXI.Renderer;
     private readonly _interaction: PIXI.EventSystem;
-    private readonly _tempRect = new PIXI.Rectangle();
+    private readonly _tempRect = new PIXI.Bounds();
     private readonly _styleSheet: HTMLStyleElement;
     private readonly _style: string;
     private _enabled = false;
@@ -47,7 +47,7 @@ export class PixiInspector {
     }
 
     private disablePixiRightClick = (event: PointerEvent | MouseEvent) => {
-        if (event.target === this._renderer.view) {
+        if (event.target === this._renderer.canvas) {
             this.hideContextMenu();
             if ((event instanceof PointerEvent ? event.pointerType === "mouse" : true) && event.button === 2) {
                 event.preventDefault();
@@ -57,7 +57,7 @@ export class PixiInspector {
     }
 
     private showContextMenu = (event: MouseEvent) => {
-        if (event.target === this._renderer.view) {
+        if (event.target === this._renderer.canvas) {
             const point = this.getStagePoint(event);
             const data = this.getContextMenuData(point, this._root);
             if (data) {
@@ -83,7 +83,7 @@ export class PixiInspector {
         return point;
     }
 
-    private flattenDescendants(target: PIXI.DisplayObject, result: PIXI.DisplayObject[]) {
+    private flattenDescendants(target: PIXI.Container, result: PIXI.Container[]) {
         if (target instanceof PIXI.Container && target.children.length > 0) {
             for (const child of target.children) {
                 this.flattenDescendants(child, result);
@@ -94,7 +94,7 @@ export class PixiInspector {
         return result;
     }
 
-    private getContextMenuData(point: PIXI.IPointData, target: PIXI.DisplayObject): IContextMenuData | undefined {
+    private getContextMenuData(point: PIXI.PointData, target: PIXI.Container): IContextMenuData | undefined {
         const sprites = this.flattenDescendants(target, []).filter(it => {
             const rect = it.getBounds(false, this._tempRect);
             return point.x >= rect.x && point.x <= rect.x + rect.width &&

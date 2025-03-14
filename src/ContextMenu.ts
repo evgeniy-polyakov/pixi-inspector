@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js";
 
 export interface IContextMenuData {
-    target: PIXI.DisplayObject;
+    target: PIXI.Container;
     children: IContextMenuData[];
     texture?: PIXI.Texture;
 }
@@ -61,11 +61,21 @@ export class ContextMenu {
         const startPadding = 0.8;
         const levelPadding = 1.4;
         const branchPadding = 0.5;
-        return `<li data-id="${id}" data-visible="${data.target.worldVisible && data.target.worldAlpha > 0}">
+        return `<li data-id="${id}" data-visible="${this.getVisible(data.target)}">
 <label style="padding-left:${levelPadding * level + startPadding}em">${this.getItemName(data, id)}</label>
 <ul>${data.children.map((it, i) => this.dataToHtml(it, `${id}-${i}`, level + 1)).join("")}</ul>
 <div style="left:${levelPadding * level + branchPadding - startPadding}em" class="branch"></div>
 </li>`;
+    }
+
+    private getVisible(target: PIXI.Container): boolean {
+        if (!target.visible || target.alpha === 0) {
+            return false;
+        }
+        if (target.parent) {
+            return this.getVisible(target.parent);
+        }
+        return true;
     }
 
     private getItemName(data: IContextMenuData, id: string): string {
@@ -73,21 +83,19 @@ export class ContextMenu {
         const texture = (data.target as {
             texture?: PIXI.Texture;
         }).texture;
-        if (texture instanceof PIXI.Texture) {
+        if (texture?.isTexture) {
             data.texture = texture;
             name += `<span>:&nbsp;</span><span data-texture="${id}">${
-                texture === PIXI.Texture.EMPTY ? "<u>empty</u>" :
-                    texture === PIXI.Texture.WHITE ? "<u>white</u>" :
-                        texture instanceof PIXI.RenderTexture ? "<u>rendered</u>" :
-                            texture.textureCacheIds && texture.textureCacheIds.length > 0 ?
-                                texture.textureCacheIds.slice(0, 2).map(it => `<u>${it}</u>`).join(",&nbsp") :
-                                "<u>unnamed</u>"
+                texture === PIXI.Texture.EMPTY ? "<u>Texture.EMPTY</u>" :
+                    texture === PIXI.Texture.WHITE ? "<u>Texture.WHITE</u>" :
+                        texture instanceof PIXI.RenderTexture ? "<u>RenderTexture</u>" :
+                            texture.label ? texture.label : texture.uid
             }</span>`
         }
         return name;
     }
 
-    private getClassName(obj: PIXI.DisplayObject): string {
+    private getClassName(obj: PIXI.Container): string {
         let className: string | undefined;
         if (obj.constructor) {
             if ((obj.constructor as any).name) {
