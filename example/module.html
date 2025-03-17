@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pixi Inspector Example</title>
+</head>
+<body>
+<script type="importmap">
+    {
+      "imports": {
+        "pixi.js": "https://cdn.jsdelivr.net/npm/pixi.js@8.x/dist/pixi.mjs"
+      }
+    }
+</script>
+<script type="module">
+    import * as PIXI from "pixi.js";
+    import {PixiInspector} from "../dist/pixi-inspector.mjs";
+
+    (async () => {
+        const app = new PIXI.Application();
+        await app.init({
+            width: 800, height: 600, backgroundColor: 0x1099bb, resolution: window.devicePixelRatio || 1,
+        });
+        const inspector = new PixiInspector(app.stage, app.renderer);
+
+        document.body.appendChild(app.canvas);
+
+        const texture = await PIXI.Assets.load("bunny.png");
+        texture.label = "bunny.png";
+
+        class Bunny extends PIXI.Container {
+            constructor() {
+                super();
+                if (Math.random() > 0.5) {
+                    this.addChild(new PIXI.Sprite(texture)).anchor.set(0.5);
+                } else {
+                    this.addChild(new PIXI.PerspectiveMesh({
+                        texture,
+                        x0: -10, y0: -20,
+                        x1: 10, y1: -20,
+                        x2: 20, y2: 20,
+                        x3: -20, y3: 20,
+                    }))
+                }
+            }
+        }
+
+        class White extends PIXI.Container {
+            constructor() {
+                super();
+                const sprite = this.addChild(new PIXI.Sprite(PIXI.Texture.WHITE));
+                sprite.anchor.set(0.5);
+                sprite.width = 50;
+                sprite.height = 50;
+            }
+        }
+
+        const createContainer = (parent, depth) => {
+            let child;
+            if (depth === 0) {
+                child = Math.random() > 0.2 ? new Bunny() : new White();
+                child.scale.set(Math.random() * 4 + 1);
+            } else {
+                child = new PIXI.Container();
+                for (let i = 0; i < Math.random() * 2; i++) {
+                    createContainer(child, depth - 1);
+                }
+            }
+            child.x = Math.random() * 200 + 50;
+            child.y = Math.random() * 200 + 50;
+            child.visible = Math.random() > 0.3;
+            child.rotation = Math.random() * 2 * Math.PI;
+            parent.addChild(child);
+        };
+
+        for (let i = 0; i < 20; i++) {
+            createContainer(app.stage, Math.floor(Math.random() * 4));
+        }
+    })();
+</script>
+</body>
+</html>
