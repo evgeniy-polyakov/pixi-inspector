@@ -39,7 +39,7 @@ export class ContextMenu {
                 this.inspectElement(it.closest("li") as HTMLElement);
             });
         });
-        ul.querySelectorAll("li > label > button.toggle").forEach(it => {
+        ul.querySelectorAll("li > label > div.toggle").forEach(it => {
             it.addEventListener("click", event => {
                 event.stopPropagation();
                 (it.closest("li") as HTMLElement).classList.toggle("collapsed");
@@ -71,7 +71,7 @@ export class ContextMenu {
         const hasChildren = data.children.length > 0;
         return `<li data-id="${id}" data-visible="${this.getVisible(data.target)}">
 <label style="padding-left:${(levelPadding * level + startPadding).toFixed(2)}em">
-${hasChildren ? `<button style="width:${(levelPadding * level + startPadding).toFixed(2)}em" class="toggle"></button>` : ""}
+${hasChildren ? `<div style="width:${(levelPadding * level + startPadding).toFixed(2)}em" class="toggle"></div>` : ""}
 ${this.getItemName(data, id)}
 </label>
 ${hasChildren ? `<ul>${data.children.map((it, i) => this.dataToHtml(it, `${id}-${i}`, level + 1)).join("")}</ul>` : ""}

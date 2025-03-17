@@ -20,7 +20,7 @@
                 this.inspectElement(it.closest("li"));
             });
         });
-        ul.querySelectorAll("li > label > button.toggle").forEach(it => {
+        ul.querySelectorAll("li > label > div.toggle").forEach(it => {
             it.addEventListener("click", event => {
                 event.stopPropagation();
                 it.closest("li").classList.toggle("collapsed");
@@ -49,7 +49,7 @@
         const hasChildren = data.children.length > 0;
         return `<li data-id="${id}" data-visible="${this.getVisible(data.target)}">
 <label style="padding-left:${(levelPadding * level + startPadding).toFixed(2)}em">
-${hasChildren ? `<button style="width:${(levelPadding * level + startPadding).toFixed(2)}em" class="toggle"></button>` : ""}
+${hasChildren ? `<div style="width:${(levelPadding * level + startPadding).toFixed(2)}em" class="toggle"></div>` : ""}
 ${this.getItemName(data, id)}
 </label>
 ${hasChildren ? `<ul>${data.children.map((it, i) => this.dataToHtml(it, `${id}-${i}`, level + 1)).join("")}</ul>` : ""}
@@ -178,6 +178,7 @@ const StyleSheet = `
         list-style: none;
         margin: 0;
         padding: 0;
+        user-select: none;
     }
 
     .pixi-inspector-texture-popup,
@@ -224,8 +225,7 @@ const StyleSheet = `
         background: ${hoverColorLight};
     }
 
-    .pixi-inspector-context-menu li > label > button {
-        all: unset;
+    .pixi-inspector-context-menu li > label > div.toggle {
         position: absolute;
         height: 100%;
         top: 0;

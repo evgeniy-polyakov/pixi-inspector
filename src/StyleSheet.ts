@@ -16,6 +16,7 @@ export const StyleSheet = `
         list-style: none;
         margin: 0;
         padding: 0;
+        user-select: none;
     }
 
     .pixi-inspector-texture-popup,
@@ -62,8 +63,7 @@ export const StyleSheet = `
         background: ${hoverColorLight};
     }
 
-    .pixi-inspector-context-menu li > label > button {
-        all: unset;
+    .pixi-inspector-context-menu li > label > div.toggle {
         position: absolute;
         height: 100%;
         top: 0;
