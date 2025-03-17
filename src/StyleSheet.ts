@@ -62,6 +62,14 @@ export const StyleSheet = `
         background: ${hoverColorLight};
     }
 
+    .pixi-inspector-context-menu li > label > button {
+        all: unset;
+        position: absolute;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+
     .pixi-inspector-context-menu ul > li > .branch {
         position: absolute;
         top: 0;
@@ -83,6 +91,48 @@ export const StyleSheet = `
 
     .pixi-inspector-context-menu ul > li:last-child > .branch {
         height: 0.8em;
+    }
+
+    .pixi-inspector-context-menu ul > li > .branch > .toggle {
+        position: absolute;
+        left: -5px;
+        top: 7px;
+        height: 7px;
+        width: 7px;
+        border: ${branchColorLight} 1px solid;
+        background: ${bgColorLight};
+    }
+
+    .pixi-inspector-context-menu ul > li > .branch > .toggle:before,
+    .pixi-inspector-context-menu ul > li > .branch > .toggle:after {
+        content: '';
+        display: block;
+        position: absolute;
+        background: ${branchColorLight};
+    }
+
+    .pixi-inspector-context-menu ul > li > .branch > .toggle:before {
+        left: 1px;
+        top: 3px;
+        width: 5px;
+        height: 1px;
+    }
+
+    .pixi-inspector-context-menu ul > li > .branch > .toggle:after {
+        left: 3px;
+        top: 1px;
+        width: 1px;
+        height: 5px;
+        display: none;
+    }
+
+    .pixi-inspector-context-menu ul > li.collapsed > .branch > .toggle:after {
+        display: block;
+    }
+
+    .pixi-inspector-context-menu ul > li.collapsed > ul {
+        height: 0;
+        overflow: hidden;
     }
 
     .pixi-inspector-context-menu li[data-visible=false] {

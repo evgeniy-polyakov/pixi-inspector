@@ -33,17 +33,24 @@ export class ContextMenu {
         div.style.top = `${y}px`;
         div.style.left = `${x}px`;
 
-        ul.querySelectorAll("li").forEach(li => {
-            li.querySelector("label")?.addEventListener("click", event => {
-                this.inspectElement(li as HTMLElement);
+        ul.querySelectorAll("li > label").forEach(it => {
+            it.addEventListener("click", event => {
+                event.stopPropagation();
+                this.inspectElement(it.closest("li") as HTMLElement);
             });
-            li.querySelectorAll("span[data-texture]").forEach(it => {
-                it.addEventListener("mouseover", event => {
-                    this.showTexturePopup(it as HTMLElement);
-                });
-                it.addEventListener("mouseout", event => {
-                    this.hideTexturePopup();
-                });
+        });
+        ul.querySelectorAll("li > label > button.toggle").forEach(it => {
+            it.addEventListener("click", event => {
+                event.stopPropagation();
+                (it.closest("li") as HTMLElement).classList.toggle("collapsed");
+            });
+        });
+        ul.querySelectorAll("span[data-texture]").forEach(it => {
+            it.addEventListener("mouseover", event => {
+                this.showTexturePopup(it as HTMLElement);
+            });
+            it.addEventListener("mouseout", event => {
+                this.hideTexturePopup();
             });
         });
 
@@ -61,10 +68,16 @@ export class ContextMenu {
         const startPadding = 0.8;
         const levelPadding = 1.4;
         const branchPadding = 0.5;
+        const hasChildren = data.children.length > 0;
         return `<li data-id="${id}" data-visible="${this.getVisible(data.target)}">
-<label style="padding-left:${levelPadding * level + startPadding}em">${this.getItemName(data, id)}</label>
-<ul>${data.children.map((it, i) => this.dataToHtml(it, `${id}-${i}`, level + 1)).join("")}</ul>
-<div style="left:${levelPadding * level + branchPadding - startPadding}em" class="branch"></div>
+<label style="padding-left:${(levelPadding * level + startPadding).toFixed(2)}em">
+${hasChildren ? `<button style="width:${(levelPadding * level + startPadding).toFixed(2)}em" class="toggle"></button>` : ""}
+${this.getItemName(data, id)}
+</label>
+${hasChildren ? `<ul>${data.children.map((it, i) => this.dataToHtml(it, `${id}-${i}`, level + 1)).join("")}</ul>` : ""}
+<div style="left:${(levelPadding * level + branchPadding - startPadding).toFixed(2)}em" class="branch">
+${hasChildren ? "<span class=\"toggle\"></span>" : ""}
+</div>
 </li>`;
     }
 

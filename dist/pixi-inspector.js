@@ -14,18 +14,24 @@
         const y = Math.max(0, Math.min(window.innerHeight - ul.clientHeight, event.clientY));
         div.style.top = `${y}px`;
         div.style.left = `${x}px`;
-        ul.querySelectorAll("li").forEach(li => {
-            var _a;
-            (_a = li.querySelector("label")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", event => {
-                this.inspectElement(li);
+        ul.querySelectorAll("li > label").forEach(it => {
+            it.addEventListener("click", event => {
+                event.stopPropagation();
+                this.inspectElement(it.closest("li"));
             });
-            li.querySelectorAll("span[data-texture]").forEach(it => {
-                it.addEventListener("mouseover", event => {
-                    this.showTexturePopup(it);
-                });
-                it.addEventListener("mouseout", event => {
-                    this.hideTexturePopup();
-                });
+        });
+        ul.querySelectorAll("li > label > button.toggle").forEach(it => {
+            it.addEventListener("click", event => {
+                event.stopPropagation();
+                it.closest("li").classList.toggle("collapsed");
+            });
+        });
+        ul.querySelectorAll("span[data-texture]").forEach(it => {
+            it.addEventListener("mouseover", event => {
+                this.showTexturePopup(it);
+            });
+            it.addEventListener("mouseout", event => {
+                this.hideTexturePopup();
             });
         });
         this._data = data;
@@ -40,10 +46,16 @@
         const startPadding = 0.8;
         const levelPadding = 1.4;
         const branchPadding = 0.5;
+        const hasChildren = data.children.length > 0;
         return `<li data-id="${id}" data-visible="${this.getVisible(data.target)}">
-<label style="padding-left:${levelPadding * level + startPadding}em">${this.getItemName(data, id)}</label>
-<ul>${data.children.map((it, i) => this.dataToHtml(it, `${id}-${i}`, level + 1)).join("")}</ul>
-<div style="left:${levelPadding * level + branchPadding - startPadding}em" class="branch"></div>
+<label style="padding-left:${(levelPadding * level + startPadding).toFixed(2)}em">
+${hasChildren ? `<button style="width:${(levelPadding * level + startPadding).toFixed(2)}em" class="toggle"></button>` : ""}
+${this.getItemName(data, id)}
+</label>
+${hasChildren ? `<ul>${data.children.map((it, i) => this.dataToHtml(it, `${id}-${i}`, level + 1)).join("")}</ul>` : ""}
+<div style="left:${(levelPadding * level + branchPadding - startPadding).toFixed(2)}em" class="branch">
+${hasChildren ? "<span class=\"toggle\"></span>" : ""}
+</div>
 </li>`;
     }
     getVisible(target) {
@@ -149,7 +161,17 @@
             this._textureImage = undefined;
         }
     }
-}// language=CSS
+}const textColorLight = "#202124";
+const textColorDark = "#e8eaed";
+const bgColorLight = "#fff";
+const bgColorDark = "#292a2d";
+const borderColorLight = "#dadce0";
+const borderColorDark = "#3c4043";
+const hoverColorLight = "#c8c8c9";
+const hoverColorDark = "#4b4c4f";
+const branchColorLight = "#72777c";
+const branchColorDark = "#8b9196";
+// language=CSS
 const StyleSheet = `
     .pixi-inspector-context-menu,
     .pixi-inspector-context-menu ul {
@@ -162,9 +184,9 @@ const StyleSheet = `
     .pixi-inspector-context-menu {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         font-size: 12px;
-        color: #202124;
-        background: #fff;
-        border: 1px solid #dadce0;
+        color: ${textColorLight};
+        background: ${bgColorLight};
+        border: 1px solid ${borderColorLight};
         box-shadow: 4px 4px 3px -1px rgba(0, 0, 0, 0.5);
         line-height: 1.2;
         max-height: 100vh;
@@ -190,15 +212,24 @@ const StyleSheet = `
         padding: 0 1.4em;
         white-space: nowrap;
         cursor: pointer;
+        position: relative;
     }
 
-    .pixi-inspector-context-menu li label span {
+    .pixi-inspector-context-menu li label > span {
         padding: 0.3em 0;
         display: inline-block;
     }
 
     .pixi-inspector-context-menu li label:hover {
-        background: #c8c8c9;
+        background: ${hoverColorLight};
+    }
+
+    .pixi-inspector-context-menu li > label > button {
+        all: unset;
+        position: absolute;
+        height: 100%;
+        top: 0;
+        left: 0;
     }
 
     .pixi-inspector-context-menu ul > li > .branch {
@@ -207,7 +238,7 @@ const StyleSheet = `
         left: 0;
         height: 100%;
         width: 0.8em;
-        border-left: #72777c 1px dotted;
+        border-left: ${branchColorLight} 1px dotted;
         pointer-events: none;
     }
 
@@ -217,15 +248,57 @@ const StyleSheet = `
         top: 0.9em;
         left: 0;
         width: 100%;
-        border-top: #72777c 1px dotted;
+        border-top: ${branchColorLight} 1px dotted;
     }
 
     .pixi-inspector-context-menu ul > li:last-child > .branch {
         height: 0.8em;
     }
 
+    .pixi-inspector-context-menu ul > li > .branch > .toggle {
+        position: absolute;
+        left: -5px;
+        top: 7px;
+        height: 7px;
+        width: 7px;
+        border: ${branchColorLight} 1px solid;
+        background: ${bgColorLight};
+    }
+
+    .pixi-inspector-context-menu ul > li > .branch > .toggle:before,
+    .pixi-inspector-context-menu ul > li > .branch > .toggle:after {
+        content: '';
+        display: block;
+        position: absolute;
+        background: ${branchColorLight};
+    }
+
+    .pixi-inspector-context-menu ul > li > .branch > .toggle:before {
+        left: 1px;
+        top: 3px;
+        width: 5px;
+        height: 1px;
+    }
+
+    .pixi-inspector-context-menu ul > li > .branch > .toggle:after {
+        left: 3px;
+        top: 1px;
+        width: 1px;
+        height: 5px;
+        display: none;
+    }
+
+    .pixi-inspector-context-menu ul > li.collapsed > .branch > .toggle:after {
+        display: block;
+    }
+
+    .pixi-inspector-context-menu ul > li.collapsed > ul {
+        height: 0;
+        overflow: hidden;
+    }
+
     .pixi-inspector-context-menu li[data-visible=false] {
-        color: #72777c;
+        color: ${branchColorLight};
     }
 
     .pixi-inspector-context-menu span[data-texture] u {
@@ -237,31 +310,31 @@ const StyleSheet = `
         object-fit: contain;
         object-position: center;
         pointer-events: none;
-        background-image: url("data:image/svg+xml;utf8,${encodeURIComponent('<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><rect height="12" width="12" y="0" x="12" fill="#dadce0"/><rect height="12" width="12" y="12" x="0" fill="#dadce0"/></svg>')}");
+        background-image: url("data:image/svg+xml;utf8,${encodeURIComponent(`<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><rect height="12" width="12" y="0" x="12" fill="${borderColorLight}"/><rect height="12" width="12" y="12" x="0" fill="${borderColorLight}"/></svg>`)}");
     }
 
     .pixi-inspector-texture-popup-dark {
-        background-image: url("data:image/svg+xml;utf8,${encodeURIComponent('<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><rect height="12" width="12" y="0" x="12" fill="#3c4043"/><rect height="12" width="12" y="12" x="0" fill="#3c4043"/></svg>')}");
+        background-image: url("data:image/svg+xml;utf8,${encodeURIComponent(`<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><rect height="12" width="12" y="0" x="12" fill="${borderColorDark}"/><rect height="12" width="12" y="12" x="0" fill="${borderColorDark}"/></svg>`)}");
     }
 
     .pixi-inspector-context-menu-dark,
     .pixi-inspector-texture-popup-dark {
-        color: #e8eaed;
-        background-color: #292a2d;
-        border-color: #3c4043;
+        color: ${textColorDark};
+        background-color: ${bgColorDark};
+        border-color: ${borderColorDark};
     }
 
     .pixi-inspector-context-menu-dark li label:hover {
-        background-color: #4b4c4f;
+        background-color: ${hoverColorDark};
     }
 
     .pixi-inspector-context-menu-dark ul > li > .branch,
     .pixi-inspector-context-menu-dark ul > li > .branch:before {
-        border-color: #8b9196;
+        border-color: ${branchColorDark};
     }
 
     .pixi-inspector-context-menu-dark li[data-visible=false] {
-        color: #8b9196;
+        color: ${branchColorDark};
     }
 `;class PixiInspector {
     constructor(root, renderer, style) {
