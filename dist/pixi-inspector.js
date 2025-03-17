@@ -336,6 +336,15 @@ const StyleSheet = `
     .pixi-inspector-context-menu-dark li[data-visible=false] {
         color: ${branchColorDark};
     }
+
+    .pixi-inspector-context-menu-dark ul > li > .branch > .toggle {
+        background: ${bgColorDark};
+    }
+
+    .pixi-inspector-context-menu ul > li > .branch > .toggle:before,
+    .pixi-inspector-context-menu ul > li > .branch > .toggle:after {
+        background: ${branchColorDark};
+    }
 `;class PixiInspector {
     constructor(root, renderer, style) {
         this._tempRect = new PIXI__namespace.Bounds();

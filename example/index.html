@@ -14,7 +14,7 @@
         await app.init({
             width: 800, height: 600, backgroundColor: 0x1099bb, resolution: window.devicePixelRatio || 1,
         });
-        const inspector = new window["pixi-inspector"].PixiInspector(app.stage, app.renderer, "light");
+        const inspector = new window["pixi-inspector"].PixiInspector(app.stage, app.renderer);
 
         document.body.appendChild(app.canvas);
 

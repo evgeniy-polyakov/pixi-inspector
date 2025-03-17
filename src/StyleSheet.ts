@@ -174,4 +174,13 @@ export const StyleSheet = `
     .pixi-inspector-context-menu-dark li[data-visible=false] {
         color: ${branchColorDark};
     }
+
+    .pixi-inspector-context-menu-dark ul > li > .branch > .toggle {
+        background: ${bgColorDark};
+    }
+
+    .pixi-inspector-context-menu ul > li > .branch > .toggle:before,
+    .pixi-inspector-context-menu ul > li > .branch > .toggle:after {
+        background: ${branchColorDark};
+    }
 `;
