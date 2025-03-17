@@ -47,3 +47,20 @@ The context menu can be disabled and enabled by using the `enabled:boolean` insp
 ## Live Demo
 
 [Open](https://evgeniy-polyakov.github.io/pixi-inspector/example/index.html)
+
+## Version History
+### 4.x
+- pixi.js 8
+- collapsable branches in the menu
+- support of ES modules
+
+### 3.x
+- pixi.js 7
+
+### 2.x
+- pixi.js 5,6
+- browsing of objects via context menu
+
+### 1.x
+- pixi.js 4,5
+- browsing of objects in html elements inspector
